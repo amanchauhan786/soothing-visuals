@@ -65,7 +65,7 @@ export const Hero: React.FC = () => {
         <div className="w-full lg:w-1/2 stagger-animation">
           <div className="mb-2 inline-block">
             <span className="inline-block px-3 py-1 text-sm font-medium bg-accent/20 text-accent-foreground rounded-full">
-              Innovative Design
+              PawanCoder786
             </span>
           </div>
           
