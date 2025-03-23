@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 // Sample profile images (you would replace these with actual images)
 const profileImages = [
-  'https://raw.githubusercontent.com/amanchauhan786/soothing-visuals/refs/heads/main/amanchauhan.JPG?token=GHSAT0AAAAAADAQL3MBKXOPHCGQJWZLLBJKZ7AG3TQ',
+  'https://github.com/amanchauhan786/soothing-visuals/blob/main/amanchauhan.JPG',
   'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=2669&auto=format&fit=crop'
 ];
