@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useTypewriter } from '@/utils/animations';
 import { ArrowRight } from 'lucide-react';
-import profile3 from './assets/photo2.jpg';
+import profile3 from './amanchauhan.JPG';
 
 // Sample profile images (you would replace these with actual images)
 const profileImages = [
