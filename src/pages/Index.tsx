@@ -7,6 +7,7 @@ import Projects from '@/components/home/Projects';
 import Gallery from '@/components/home/Gallery';
 import Contact from '@/components/home/Contact';
 import { useTheme } from '@/utils/animations';
+import BackgroundAnimation from '@/components/layout/BackgroundAnimation';
 
 const Index = () => {
   const { theme } = useTheme();
@@ -19,9 +20,10 @@ const Index = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <BackgroundAnimation />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <Experience />
         <Projects />
@@ -29,7 +31,7 @@ const Index = () => {
         <Contact />
       </main>
       
-      <footer className="py-12 px-4 bg-secondary/50">
+      <footer className="py-12 px-4 bg-secondary/50 relative z-10">
         <div className="container mx-auto text-center">
           <p className="text-muted-foreground mb-4">
             Designed and built with attention to detail
