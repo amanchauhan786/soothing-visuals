@@ -11,7 +11,7 @@ const profileImages = [
 ];
 
 export const Hero: React.FC = () => {
-  const { displayText: title } = useTypewriter('Design Simplicity', 100, 500);
+  const { displayText: title } = useTypewriter(' AMAN CHAUHAN', 100, 500);
   
   // Refs for image elements
   const imageRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
