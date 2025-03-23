@@ -28,7 +28,7 @@ const BackgroundAnimation: React.FC = () => {
     
     // Particle colors based on theme
     const lightThemeColors = ['#e1e7fd', '#c9d6fc', '#b1c5fa', '#96b3f9', '#d6bcfa'];
-    const darkThemeColors = ['#1A1F2C', '#6E59A5', '#7E69AB', '#9b87f5', '#33415c'];
+    const darkThemeColors = ['#FFFFFF', '#F8F9FA', '#E9ECEF', '#DEE2E6', '#CED4DA'];
     
     class Particle {
       x: number;
@@ -88,8 +88,8 @@ const BackgroundAnimation: React.FC = () => {
         gradient.addColorStop(0, '#f2fcfe');
         gradient.addColorStop(1, '#f8f8fa');
       } else {
-        gradient.addColorStop(0, '#111827');
-        gradient.addColorStop(1, '#1e293b');
+        gradient.addColorStop(0, '#000000');
+        gradient.addColorStop(1, '#111111');
       }
       
       ctx.globalAlpha = 1;
@@ -121,7 +121,7 @@ const BackgroundAnimation: React.FC = () => {
           if (distance < maxDistance) {
             const opacity = 1 - (distance / maxDistance);
             ctx.globalAlpha = opacity * 0.2;
-            ctx.strokeStyle = theme === 'light' ? '#8B5CF6' : '#D6BCFA';
+            ctx.strokeStyle = theme === 'light' ? '#8B5CF6' : '#FFFFFF';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
