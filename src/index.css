@@ -87,7 +87,7 @@
   }
 
   .glass-card {
-    @apply rounded-lg glass transition-all duration-300 hover:shadow-md;
+    @apply rounded-lg glass transition-all duration-300 hover:shadow-md hover:scale-[1.01] hover:-translate-y-1;
   }
 
   .nav-link {
@@ -154,4 +154,30 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
 }
