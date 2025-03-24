@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useInView } from '@/utils/animations';
-import { Calendar as CalendarIcon, Clock, ArrowRight, Check, X } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, ArrowRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -117,8 +117,9 @@ export const Calendly: React.FC = () => {
                   <p className="text-muted-foreground mb-6">
                     Choose a date and time that works for you, and I'll make myself available.
                   </p>
-                  <Button onClick={openCalendar} className="btn-primary">
+                  <Button onClick={openCalendar} className="btn-primary flex items-center gap-2">
                     Select Date & Time
+                    <CalendarIcon className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
