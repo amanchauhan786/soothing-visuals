@@ -5,6 +5,7 @@ import Hero from '@/components/home/Hero';
 import Experience from '@/components/home/Experience';
 import Projects from '@/components/home/Projects';
 import Gallery from '@/components/home/Gallery';
+import Calendly from '@/components/home/Calendly';
 import Contact from '@/components/home/Contact';
 import { useTheme } from '@/utils/animations';
 
@@ -26,6 +27,7 @@ const Index = () => {
         <Experience />
         <Projects />
         <Gallery />
+        <Calendly />
         <Contact />
       </main>
       
