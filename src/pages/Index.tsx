@@ -39,7 +39,7 @@ const Index = () => {
             Designed and built with attention to detail
           </p>
           <p className="text-sm">
-            © {new Date().getFullYear()} Minimal. All rights reserved.
+            © {new Date().getFullYear()} Aman Chauhan. All rights reserved.
           </p>
         </div>
       </footer>
