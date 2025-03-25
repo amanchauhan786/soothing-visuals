@@ -7,6 +7,7 @@ import Projects from '@/components/home/Projects';
 import Gallery from '@/components/home/Gallery';
 import Calendly from '@/components/home/Calendly';
 import Contact from '@/components/home/Contact';
+import Achievements from '@/components/home/Achievements';
 import { useTheme } from '@/utils/animations';
 
 const Index = () => {
@@ -26,6 +27,7 @@ const Index = () => {
         <Hero />
         <Experience />
         <Projects />
+        <Achievements />
         <Gallery />
         <Calendly />
         <Contact />
