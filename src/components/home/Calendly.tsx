@@ -17,8 +17,8 @@ export const Calendly: React.FC = () => {
 
   // Function to open calendly
   const openCalendly = () => {
-    // Replace this URL with your actual Calendly link
-    window.open('https://calendly.com/your-username', '_blank');
+    // Using the actual Calendly link provided
+    window.open('https://calendly.com/amssre-16267/30min', '_blank');
   };
 
   // Function to open calendar dialog
