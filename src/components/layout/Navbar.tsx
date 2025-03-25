@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, CalendarClock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -35,6 +36,11 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Function to open Calendly
+  const openCalendly = () => {
+    window.open('https://calendly.com/amssre-16267/30min', '_blank');
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 glass shadow-sm' : 'py-4 bg-transparent'}`}>
       <div className="container mx-auto px-4 flex items-center justify-between">
@@ -52,13 +58,29 @@ export const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-          <div className="ml-4">
+          <Button 
+            onClick={openCalendly} 
+            variant="outline" 
+            className="ml-2 flex items-center"
+          >
+            <CalendarClock className="mr-2 h-4 w-4" />
+            Schedule
+          </Button>
+          <div className="ml-2">
             <ThemeToggle />
           </div>
         </nav>
 
         {/* Mobile navigation toggle */}
         <div className="flex items-center md:hidden">
+          <Button 
+            onClick={openCalendly} 
+            variant="outline" 
+            className="mr-2 p-2 h-10 w-10 flex items-center justify-center"
+            size="icon"
+          >
+            <CalendarClock className="h-5 w-5" />
+          </Button>
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
