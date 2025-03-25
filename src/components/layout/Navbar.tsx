@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { Menu, X, CalendarClock } from 'lucide-react';
@@ -39,7 +38,7 @@ export const Navbar: React.FC = () => {
 
   // Function to open Calendly
   const openCalendly = () => {
-    window.open('https://calendly.com/amssre-16267/30min', '_blank');
+    window.open('https://calendly.com/aman-chauhan2022', '_blank');
   };
 
   return (
@@ -49,7 +48,7 @@ export const Navbar: React.FC = () => {
           href="#home" 
           className="text-xl font-bold tracking-tight relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
         >
-          Minimal.
+          Aman Chauhan
         </a>
 
         {/* Desktop navigation */}

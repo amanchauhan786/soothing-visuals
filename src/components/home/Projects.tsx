@@ -1,61 +1,36 @@
-
 import React, { useState } from 'react';
 import { useInView } from '@/utils/animations';
 import { ExternalLink, Github } from 'lucide-react';
 
-// Sample project data
+// Project data
 const projects = [
   {
-    title: 'Minimalist Dashboard',
-    description: 'A clean, intuitive dashboard interface for data visualization with a focus on user experience.',
+    title: 'Nirakshit – AI-Powered Disaster Management',
+    description: 'Real-time LiDAR-based analysis system using YD LiDAR X2, with WebSocket-enabled Arduino for data streaming and visualization. AI-driven crack detection pipeline with OpenCV for automated fault identification.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
-    category: 'UI/UX',
+    category: 'AI/ML',
     link: '#',
     github: '#'
   },
   {
-    title: 'E-commerce Redesign',
-    description: 'A complete redesign of an e-commerce platform focused on simplicity and conversion optimization.',
+    title: 'SafeNest – AI-Driven Geofencing',
+    description: 'Real-time geofencing system with predictive analytics for movement anomaly detection and alert generation. Network protocols simulated in Cisco Packet Tracer for secure data transmission.',
     image: 'https://images.unsplash.com/photo-1576153192396-180ecef2a715?q=80&w=2674&auto=format&fit=crop',
-    category: 'Web Design',
+    category: 'IoT',
     link: '#',
     github: '#'
   },
   {
-    title: 'Mobile Banking App',
-    description: 'A mobile banking application with intuitive navigation and secure transaction features.',
+    title: 'AyurGuna – Ayurvedic Wellness Website',
+    description: 'Visually appealing and user-friendly website enhancing accessibility to Ayurvedic remedies and wellness plans. Integrated GenAI-powered recommendation system for personalized Ayurvedic alternatives.',
     image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2670&auto=format&fit=crop',
-    category: 'Mobile',
-    link: '#',
-    github: '#'
-  },
-  {
-    title: 'Smart Home Control',
-    description: 'An intuitive interface for managing smart home devices with voice commands and automation.',
-    image: 'https://images.unsplash.com/photo-1558002038-bb0837aad643?q=80&w=2670&auto=format&fit=crop',
-    category: 'UI/UX',
-    link: '#',
-    github: '#'
-  },
-  {
-    title: 'Travel Booking Platform',
-    description: 'A modern travel booking platform with personalized recommendations and streamlined booking.',
-    image: 'https://images.unsplash.com/photo-1499363536502-87642509e31b?q=80&w=2674&auto=format&fit=crop',
     category: 'Web Design',
-    link: '#',
-    github: '#'
-  },
-  {
-    title: 'Health Tracking Wearable',
-    description: 'A health monitoring application for wearable devices with data visualization and insights.',
-    image: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2670&auto=format&fit=crop',
-    category: 'Mobile',
     link: '#',
     github: '#'
   }
 ];
 
-const categories = ['All', 'UI/UX', 'Web Design', 'Mobile'];
+const categories = ['All', 'AI/ML', 'Web Design', 'IoT'];
 
 export const Projects: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');

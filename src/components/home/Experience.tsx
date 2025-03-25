@@ -3,27 +3,27 @@ import React from 'react';
 import { useInView } from '@/utils/animations';
 import { Briefcase, Calendar, ArrowRight } from 'lucide-react';
 
-// Sample experience data
+// Experience data
 const experiences = [
   {
-    title: 'Senior Product Designer',
-    company: 'Tech Innovations Inc.',
-    period: '2020 - Present',
-    description: 'Led the design system for a flagship product, improving design consistency and development speed by 40%.',
+    title: 'Chief AI Officer',
+    company: 'Cropsky',
+    period: 'Aug 2024 - Present',
+    description: 'Developed AgriDrone, an AI-powered system optimizing broadcasting and crop health monitoring using NDVI technology. Built a mobile application for real-time farm monitoring, leveraging NDVI-based analysis to generate detailed crop health reports and dashboards, boosting productivity by 40 percent.',
     logo: 'https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?q=80&w=2476&auto=format&fit=crop'
   },
   {
-    title: 'UX/UI Designer',
-    company: 'Creative Solutions',
-    period: '2017 - 2020',
-    description: 'Redesigned the mobile app experience resulting in a 28% increase in user engagement and a 15% decrease in bounce rate.',
+    title: 'Gen AI Intern',
+    company: 'G5InfoTech',
+    period: 'Apr 2024 - Oct 2024',
+    description: 'Engineered an AI-driven content refinement pipeline using LangChain, BeautifulSoup, Scrapy, and ProxyCurl, improving content accuracy by 30 percent. Developed an automated LinkedIn profile suggestion system, enhancing content personalization and recommendation quality.',
     logo: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2564&auto=format&fit=crop'
   },
   {
-    title: 'Visual Designer',
-    company: 'Digital Craft',
-    period: '2015 - 2017',
-    description: 'Created visual identity systems for 15+ brands across various industries, focusing on scalable design components.',
+    title: 'Marketing Intern',
+    company: 'Stockz11',
+    period: 'Dec 2023 - Jan 2024',
+    description: 'Designed AI-driven ad campaigns for Facebook and Instagram, boosting audience engagement and reach. Optimized content strategy using data insights, enhancing brand visibility and targeted marketing effectiveness.',
     logo: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=2673&auto=format&fit=crop'
   }
 ];

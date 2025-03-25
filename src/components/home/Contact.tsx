@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useInView } from '@/utils/animations';
 import { Send, Mail, Phone, MapPin, Linkedin, Github, Twitter } from 'lucide-react';
@@ -141,8 +140,8 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-1">Email</h4>
-                    <a href="mailto:hello@example.com" className="text-lg hover:text-primary transition-colors duration-300">
-                      hello@example.com
+                    <a href="mailto:aman.chauhan2022@vitstudent.ac.in" className="text-lg hover:text-primary transition-colors duration-300">
+                      aman.chauhan2022@vitstudent.ac.in
                     </a>
                   </div>
                 </div>
@@ -153,8 +152,8 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-1">Phone</h4>
-                    <a href="tel:+11234567890" className="text-lg hover:text-primary transition-colors duration-300">
-                      +1 (123) 456-7890
+                    <a href="tel:+919837408849" className="text-lg hover:text-primary transition-colors duration-300">
+                      +91 9837408849
                     </a>
                   </div>
                 </div>
@@ -165,7 +164,7 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-1">Location</h4>
-                    <p className="text-lg">San Francisco, California</p>
+                    <p className="text-lg">VIT University, Vellore, Tamil Nadu, India</p>
                   </div>
                 </div>
                 
@@ -173,25 +172,22 @@ export const Contact: React.FC = () => {
                   <h4 className="text-sm font-medium text-muted-foreground mb-4">Connect on social media</h4>
                   <div className="flex space-x-4">
                     <a 
-                      href="#" 
+                      href="https://www.linkedin.com/in/aman-chauhan-128552256/" 
                       className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
                       aria-label="LinkedIn"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <Linkedin className="w-5 h-5" />
                     </a>
                     <a 
-                      href="#" 
+                      href="https://github.com/amanchauhan786" 
                       className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
                       aria-label="GitHub"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <Github className="w-5 h-5" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                      aria-label="Twitter"
-                    >
-                      <Twitter className="w-5 h-5" />
                     </a>
                   </div>
                 </div>
