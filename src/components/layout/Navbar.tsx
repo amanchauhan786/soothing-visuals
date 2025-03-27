@@ -44,7 +44,7 @@ export const Navbar: React.FC = () => {
 
   // Function to open Calendly with the correct link
   const openCalendly = () => {
-    window.open('https://calendly.com/aman-chauhan2022', '_blank');
+    window.open('https://calendly.com/amssre-16267/30min?month=2025-03', '_blank');
   };
 
   return (
