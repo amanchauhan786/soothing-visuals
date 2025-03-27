@@ -89,7 +89,7 @@ export const Experience: React.FC = () => {
         </div>
         
         <div className="text-center mt-8">
-          <a href="#" className="inline-flex items-center text-primary font-medium hover:underline">
+          <a href="https://coral-camala-8.tiiny.site/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary font-medium hover:underline">
             View Full Resume
             <ArrowRight className="ml-2 w-4 h-4" />
           </a>
