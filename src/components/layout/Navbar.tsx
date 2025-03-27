@@ -37,7 +37,12 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Function to open Calendly
+  // Close menu on anchor click
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Function to open Calendly with the correct link
   const openCalendly = () => {
     window.open('https://calendly.com/aman-chauhan2022', '_blank');
   };
@@ -79,6 +84,7 @@ export const Navbar: React.FC = () => {
             variant="outline" 
             className="mr-2 p-2 h-10 w-10 flex items-center justify-center"
             size="icon"
+            aria-label="Schedule a call"
           >
             <CalendarClock className="h-5 w-5" />
           </Button>
@@ -99,8 +105,8 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile menu */}
       <div 
-        className={`md:hidden glass shadow-lg absolute left-0 right-0 top-full px-4 py-4 transition-transform duration-300 ease-in-out transform ${
-          isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0 pointer-events-none'
+        className={`md:hidden glass shadow-lg absolute left-0 right-0 top-full px-4 py-4 transition-all duration-300 ease-in-out ${
+          isMenuOpen ? 'translate-y-0 opacity-100 visible' : '-translate-y-10 opacity-0 invisible'
         }`}
       >
         <nav className="flex flex-col space-y-4">
@@ -108,12 +114,23 @@ export const Navbar: React.FC = () => {
             <a
               key={link.name}
               href={link.href}
-              className="px-4 py-2 rounded-md hover:bg-secondary transition-colors duration-200"
-              onClick={() => setIsMenuOpen(false)}
+              className="px-4 py-2 rounded-md hover:bg-secondary transition-colors duration-200 text-center font-medium"
+              onClick={handleLinkClick}
             >
               {link.name}
             </a>
           ))}
+          <Button 
+            onClick={() => {
+              openCalendly();
+              handleLinkClick();
+            }}
+            variant="outline" 
+            className="mt-2 w-full flex items-center justify-center"
+          >
+            <CalendarClock className="mr-2 h-4 w-4" />
+            Schedule a Call
+          </Button>
         </nav>
       </div>
     </header>
