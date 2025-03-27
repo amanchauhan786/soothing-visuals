@@ -21,9 +21,9 @@ const Index = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="w-full overflow-x-hidden">
         <Hero />
         <Experience />
         <Projects />
@@ -33,7 +33,7 @@ const Index = () => {
         <Contact />
       </main>
       
-      <footer className="py-12 px-4 bg-secondary/50">
+      <footer className="py-12 px-4 bg-secondary/50 w-full">
         <div className="container mx-auto text-center">
           <p className="text-muted-foreground mb-4">
             Designed and built with attention to detail
