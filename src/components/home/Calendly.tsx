@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { format } from 'date-fns';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import emailjs from '@emailjs/browser';
 
 export const Calendly: React.FC = () => {
@@ -71,16 +72,17 @@ export const Calendly: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Using EmailJS to send notification to my email
+    // Using EmailJS with the updated service, template and parameters
     const templateParams = {
-      meeting_date: format(date!, 'PPPP'),
-      meeting_time: selectedTimeSlot,
-      user_email: email,
+      to_name: "Aman",
+      from_name: email,
+      message: `Meeting requested for ${format(date!, 'PPPP')} at ${selectedTimeSlot}`,
+      reply_to: email,
     };
 
     emailjs.send(
-      'service_uaih10o', // Service ID
-      'template_a5bfd8i', // Template ID
+      'service_3yphlu2', // Updated Service ID
+      'template_pleikng', // Updated Template ID
       templateParams,
       '4nu3LbtqfkCc3zUgL' // Public key
     )
@@ -175,9 +177,9 @@ export const Calendly: React.FC = () => {
         </div>
       </div>
 
-      {/* Calendar Dialog */}
+      {/* Calendar Dialog with ScrollArea */}
       <Dialog open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>Schedule a Meeting</DialogTitle>
             <DialogDescription>
@@ -185,79 +187,81 @@ export const Calendly: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={handleDateSelect}
-              className="rounded-md border"
-              disabled={(date) => {
-                // Disable weekends and past dates
-                const day = date.getDay();
-                return day === 0 || day === 6 || date < new Date();
-              }}
-            />
-          </div>
-          
-          {date && (
-            <div className="mt-4">
-              <h4 className="font-medium mb-2">Available time slots for {format(date, 'PPP')}</h4>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {timeSlots.map((slot) => (
-                  <Button
-                    key={slot}
-                    variant={selectedTimeSlot === slot ? "default" : "outline"}
-                    className="justify-center"
-                    onClick={() => handleTimeSlotSelect(slot)}
-                  >
-                    {slot}
-                  </Button>
-                ))}
-              </div>
-              
-              {selectedTimeSlot && (
-                <>
-                  <div className="mt-4">
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Your Email Address
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-muted-foreground" />
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                      />
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Required for meeting confirmation
-                    </p>
-                  </div>
-                  
-                  <Button 
-                    onClick={confirmBooking} 
-                    className="w-full mt-4"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <span className="inline-flex items-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Processing...
-                      </span>
-                    ) : (
-                      `Confirm ${format(date, 'MMM d')} at ${selectedTimeSlot}`
-                    )}
-                  </Button>
-                </>
-              )}
+          <ScrollArea className="h-[500px] pr-4">
+            <div className="py-4">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateSelect}
+                className="rounded-md border"
+                disabled={(date) => {
+                  // Disable weekends and past dates
+                  const day = date.getDay();
+                  return day === 0 || day === 6 || date < new Date();
+                }}
+              />
             </div>
-          )}
+            
+            {date && (
+              <div className="mt-4">
+                <h4 className="font-medium mb-2">Available time slots for {format(date, 'PPP')}</h4>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {timeSlots.map((slot) => (
+                    <Button
+                      key={slot}
+                      variant={selectedTimeSlot === slot ? "default" : "outline"}
+                      className="justify-center"
+                      onClick={() => handleTimeSlotSelect(slot)}
+                    >
+                      {slot}
+                    </Button>
+                  ))}
+                </div>
+                
+                {selectedTimeSlot && (
+                  <>
+                    <div className="mt-4">
+                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                        Your Email Address
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-muted-foreground" />
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={email}
+                          onChange={handleEmailChange}
+                          required
+                        />
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Required for meeting confirmation
+                      </p>
+                    </div>
+                    
+                    <Button 
+                      onClick={confirmBooking} 
+                      className="w-full mt-4 mb-4"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <span className="inline-flex items-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Processing...
+                        </span>
+                      ) : (
+                        `Confirm ${format(date, 'MMM d')} at ${selectedTimeSlot}`
+                      )}
+                    </Button>
+                  </>
+                )}
+              </div>
+            )}
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 

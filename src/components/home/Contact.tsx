@@ -25,11 +25,18 @@ export const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Use EmailJS to send the form data
-    emailjs.sendForm(
-      'service_uaih10o', // Service ID
-      'template_a5bfd8i', // Template ID
-      formRef.current!, 
+    // Use EmailJS to send the form data with updated template
+    const templateParams = {
+      to_name: "Aman",
+      from_name: formState.name,
+      message: formState.message,
+      reply_to: formState.email
+    };
+    
+    emailjs.send(
+      'service_3yphlu2', // Updated Service ID
+      'template_pleikng', // Updated Template ID
+      templateParams, 
       '4nu3LbtqfkCc3zUgL' // Public key
     )
     .then((result) => {
