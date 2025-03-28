@@ -1,19 +1,25 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useInView } from '@/utils/animations';
-import { Calendar as CalendarIcon, Clock, ArrowRight, Check } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, ArrowRight, Check, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { format } from 'date-fns';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
 
 export const Calendly: React.FC = () => {
   const { ref, isInView } = useInView(0.1);
+  const { toast } = useToast();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Function to open calendly
   const openCalendly = () => {
@@ -47,18 +53,59 @@ export const Calendly: React.FC = () => {
     setSelectedTimeSlot(timeSlot);
   };
 
+  // Function to handle email change
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   // Function to confirm booking
   const confirmBooking = () => {
-    setIsCalendarOpen(false);
-    setConfirmationOpen(true);
-    
-    // Reset selections
-    setTimeout(() => {
-      setConfirmationOpen(false);
-      setDate(undefined);
-      setSelectedTimeSlot(null);
-      setTimeSlots([]);
-    }, 3000);
+    if (!email) {
+      toast({
+        title: "Email Required",
+        description: "Please provide your email address so I can contact you.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Using EmailJS to send notification to my email
+    const templateParams = {
+      meeting_date: format(date!, 'PPPP'),
+      meeting_time: selectedTimeSlot,
+      user_email: email,
+    };
+
+    emailjs.send(
+      'service_uaih10o', // Service ID
+      'template_a5bfd8i', // Template ID
+      templateParams,
+      '4nu3LbtqfkCc3zUgL' // Public key
+    )
+    .then(() => {
+      setIsCalendarOpen(false);
+      setConfirmationOpen(true);
+      setIsSubmitting(false);
+      
+      // Reset selections
+      setTimeout(() => {
+        setConfirmationOpen(false);
+        setDate(undefined);
+        setSelectedTimeSlot(null);
+        setTimeSlots([]);
+        setEmail('');
+      }, 3000);
+    }, (error) => {
+      setIsSubmitting(false);
+      toast({
+        title: "Error booking meeting",
+        description: "Please try again or use the Calendly link instead.",
+        variant: "destructive",
+      });
+      console.error('EmailJS error:', error);
+    });
   };
 
   return (
@@ -169,12 +216,45 @@ export const Calendly: React.FC = () => {
               </div>
               
               {selectedTimeSlot && (
-                <Button 
-                  onClick={confirmBooking} 
-                  className="w-full mt-4"
-                >
-                  Confirm {format(date, 'MMM d')} at {selectedTimeSlot}
-                </Button>
+                <>
+                  <div className="mt-4">
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      Your Email Address
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-muted-foreground" />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        value={email}
+                        onChange={handleEmailChange}
+                        required
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Required for meeting confirmation
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    onClick={confirmBooking} 
+                    className="w-full mt-4"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <span className="inline-flex items-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : (
+                      `Confirm ${format(date, 'MMM d')} at ${selectedTimeSlot}`
+                    )}
+                  </Button>
+                </>
               )}
             </div>
           )}
@@ -196,7 +276,7 @@ export const Calendly: React.FC = () => {
               }
             </DialogDescription>
             <p className="mt-4 text-sm text-muted-foreground">
-              A confirmation email has been sent to your inbox with all the details.
+              A confirmation email has been sent. I look forward to our meeting!
             </p>
           </div>
         </DialogContent>
