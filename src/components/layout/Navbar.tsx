@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import VoiceReader from '@/components/ui/VoiceReader';
 import { Menu, X, CalendarClock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -64,6 +65,10 @@ export const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
+          
+          {/* Voice Reader - Desktop */}
+          <VoiceReader className="mr-1" />
+          
           <Button 
             onClick={openCalendly} 
             variant="outline" 
@@ -79,6 +84,9 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile navigation toggle */}
         <div className="flex items-center md:hidden">
+          {/* Voice Reader - Mobile */}
+          <VoiceReader className="mr-1" />
+          
           <Button 
             onClick={openCalendly} 
             variant="outline" 
