@@ -24,27 +24,13 @@ const Index = () => {
     <div className="min-h-screen w-full overflow-x-hidden">
       <Navbar />
       <main className="w-full overflow-x-hidden">
-        <section id="home">
-          <Hero />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="achievements">
-          <Achievements />
-        </section>
-        <section id="gallery">
-          <Gallery />
-        </section>
-        <section id="calendly">
-          <Calendly />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
+        <Hero />
+        <Experience />
+        <Projects />
+        <Achievements />
+        <Gallery />
+        <Calendly />
+        <Contact />
       </main>
       
       <footer className="py-12 px-4 bg-secondary/50 w-full">
