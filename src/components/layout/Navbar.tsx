@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import VoiceReader from '@/components/ui/VoiceReader';
 import { Menu, X, CalendarClock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -73,6 +74,9 @@ export const Navbar: React.FC = () => {
             Schedule
           </Button>
           <div className="ml-2">
+            <VoiceReader />
+          </div>
+          <div className="ml-2">
             <ThemeToggle />
           </div>
         </nav>
@@ -88,6 +92,7 @@ export const Navbar: React.FC = () => {
           >
             <CalendarClock className="h-5 w-5" />
           </Button>
+          <VoiceReader />
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
