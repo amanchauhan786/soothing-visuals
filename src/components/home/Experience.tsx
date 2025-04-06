@@ -6,7 +6,7 @@ import { Briefcase, Calendar, ArrowRight } from 'lucide-react';
 // Experience data
 const experiences = [
   {
-    title: 'Chief AI Officer',
+    title: 'Co-founder',
     company: 'Cropsky',
     period: 'Aug 2024 - Present',
     description: 'Developed AgriDrone, an AI-powered system optimizing broadcasting and crop health monitoring using NDVI technology. Built a mobile application for real-time farm monitoring, leveraging NDVI-based analysis to generate detailed crop health reports and dashboards, boosting productivity by 40 percent.',
