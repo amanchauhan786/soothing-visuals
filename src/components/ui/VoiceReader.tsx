@@ -18,6 +18,8 @@ const VoiceReader: React.FC = () => {
   const sections = useRef<Section[]>([]);
   const speechSynthesis = useRef<SpeechSynthesis | null>(null);
   const utterance = useRef<SpeechSynthesisUtterance | null>(null);
+  const currentText = useRef<string>("");
+  const currentTextPosition = useRef<number>(0);
   const { theme } = useTheme();
 
   // Initialize sections once when component mounts
@@ -66,6 +68,7 @@ const VoiceReader: React.FC = () => {
     setCurrentSectionIndex(0);
     setIsReading(true);
     setIsPaused(false);
+    currentTextPosition.current = 0;
     
     toast("Voice reader activated. Reading website content...");
   };
@@ -78,6 +81,8 @@ const VoiceReader: React.FC = () => {
     setIsReading(false);
     setIsPaused(false);
     setCurrentSectionIndex(-1);
+    currentTextPosition.current = 0;
+    currentText.current = "";
     toast("Voice reader stopped");
   };
 
@@ -86,19 +91,83 @@ const VoiceReader: React.FC = () => {
     if (!speechSynthesis.current) return;
     
     if (isPaused) {
-      speechSynthesis.current.resume();
+      // Resume from where we left off
+      if (currentText.current) {
+        // Create a new utterance for the remaining text
+        const remainingText = currentText.current.substring(currentTextPosition.current);
+        const newUtterance = new SpeechSynthesisUtterance(remainingText);
+        
+        // Configure the new utterance
+        configureUtterance(newUtterance);
+        
+        // When this utterance ends, move to next section if appropriate
+        newUtterance.onend = () => {
+          if (currentSectionIndex < sections.current.length - 1) {
+            setCurrentSectionIndex(prev => prev + 1);
+          } else {
+            // We've reached the end
+            setIsReading(false);
+            toast("Finished reading all content");
+          }
+        };
+        
+        utterance.current = newUtterance;
+        speechSynthesis.current.speak(utterance.current);
+      }
+      
       setIsPaused(false);
       toast("Voice reader resumed");
     } else {
+      // Store current position before pausing
+      if (utterance.current) {
+        const elapsedTime = speechSynthesis.current.speaking ? 
+          (Date.now() - (utterance.current as any)._startTime || 0) / 1000 : 0;
+        
+        // Approximate the position in the text based on time and speaking rate
+        // This is an approximation as SpeechSynthesis doesn't provide exact position
+        const approxCharsPerSecond = 5; // This varies based on voice and rate
+        currentTextPosition.current = Math.floor(elapsedTime * approxCharsPerSecond * utterance.current.rate);
+        
+        // Ensure we don't exceed the text length
+        if (currentTextPosition.current > currentText.current.length) {
+          currentTextPosition.current = 0;
+        }
+      }
+      
       speechSynthesis.current.pause();
       setIsPaused(true);
       toast("Voice reader paused");
     }
   };
 
+  // Configure utterance with voice options
+  const configureUtterance = (utteranceObj: SpeechSynthesisUtterance) => {
+    utteranceObj.rate = 0.9; // Slightly slower for better clarity
+    utteranceObj.pitch = 1;
+    
+    // Store start time for position tracking
+    (utteranceObj as any)._startTime = Date.now();
+    
+    // Choose a natural-sounding voice if available
+    if (speechSynthesis.current) {
+      const voices = speechSynthesis.current.getVoices();
+      const preferredVoice = voices.find(voice => 
+        voice.name.includes("Google") || 
+        voice.name.includes("Natural") || 
+        voice.name.includes("Samantha")
+      );
+      
+      if (preferredVoice) {
+        utteranceObj.voice = preferredVoice;
+      }
+    }
+  };
+
   // Read current section and move to next when done
   useEffect(() => {
-    if (!isReading || currentSectionIndex < 0 || currentSectionIndex >= sections.current.length || !speechSynthesis.current) return;
+    if (!isReading || isPaused || currentSectionIndex < 0 || 
+        currentSectionIndex >= sections.current.length || 
+        !speechSynthesis.current) return;
     
     const currentSection = sections.current[currentSectionIndex];
     
@@ -115,22 +184,13 @@ const VoiceReader: React.FC = () => {
       textToRead = `Now viewing the ${currentSection.title} section. ${extractTextContent(currentSection.element)}`;
     }
     
+    // Store the full text for resume functionality
+    currentText.current = textToRead;
+    currentTextPosition.current = 0;
+    
     // Create and configure the utterance
     utterance.current = new SpeechSynthesisUtterance(textToRead);
-    utterance.current.rate = 0.9; // Slightly slower for better clarity
-    utterance.current.pitch = 1;
-    
-    // Choose a natural-sounding voice if available
-    const voices = speechSynthesis.current.getVoices();
-    const preferredVoice = voices.find(voice => 
-      voice.name.includes("Google") || 
-      voice.name.includes("Natural") || 
-      voice.name.includes("Samantha")
-    );
-    
-    if (preferredVoice) {
-      utterance.current.voice = preferredVoice;
-    }
+    configureUtterance(utterance.current);
     
     // Move to next section when current one finishes
     utterance.current.onend = () => {
@@ -146,7 +206,7 @@ const VoiceReader: React.FC = () => {
     // Start speaking
     speechSynthesis.current.speak(utterance.current);
     
-  }, [currentSectionIndex, isReading]);
+  }, [currentSectionIndex, isReading, isPaused]);
 
   // Helper function to extract readable text from a section
   const extractTextContent = (element: HTMLElement): string => {
