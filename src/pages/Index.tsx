@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/home/Hero';
 import Experience from '@/components/home/Experience';
 import Projects from '@/components/home/Projects';
+import Skills from '@/components/home/Skills';
 import Gallery from '@/components/home/Gallery';
 import Calendly from '@/components/home/Calendly';
 import Contact from '@/components/home/Contact';
@@ -32,6 +33,9 @@ const Index = () => {
         </section>
         <section id="projects">
           <Projects />
+        </section>
+        <section id="skills">
+          <Skills />
         </section>
         <section id="achievements">
           <Achievements />
