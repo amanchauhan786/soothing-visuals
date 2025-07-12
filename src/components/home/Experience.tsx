@@ -6,25 +6,18 @@ import { Briefcase, Calendar, ArrowRight } from 'lucide-react';
 // Experience data
 const experiences = [
   {
+    title: 'Research Intern',
+    company: 'Indian Institute of Technology, Roorkee',
+    period: 'May 2025 - July 2025',
+    description: 'FPGA-Based TinyML Research: Created and deployed TinyML models for real-time inference on ESP32/Arduino, including a 90%+ accuracy OCR model. RISC-V Simulation & Verification: Utilized simulation-driven development tools to implement and verify programs on RISC-V core, reducing verification time by 30%. Hardware-Software Co-Design: Optimized RGB-to-Grayscale algorithm achieving 4x speedup on simulated FPGA platform.',
+    logo: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2486&auto=format&fit=crop'
+  },
+  {
     title: 'Co-founder',
-    company: 'Cropsky',
+    company: 'CropSky, VITTBI-Preincubated Startup',
     period: 'Aug 2024 - Present',
-    description: 'Developed AgriDrone, an AI-powered system optimizing broadcasting and crop health monitoring using NDVI technology. Built a mobile application for real-time farm monitoring, leveraging NDVI-based analysis to generate detailed crop health reports and dashboards, boosting productivity by 40 percent.',
-    logo: 'https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?q=80&w=2476&auto=format&fit=crop'
-  },
-  {
-    title: 'Gen AI Intern',
-    company: 'G5InfoTech',
-    period: 'Apr 2024 - Oct 2024',
-    description: 'Engineered an AI-driven content refinement pipeline using LangChain, BeautifulSoup, Scrapy, and ProxyCurl, improving content accuracy by 30 percent. Developed an automated LinkedIn profile suggestion system, enhancing content personalization and recommendation quality.',
-    logo: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2564&auto=format&fit=crop'
-  },
-  {
-    title: 'Marketing Intern',
-    company: 'Stockz11',
-    period: 'Dec 2023 - Jan 2024',
-    description: 'Designed AI-driven ad campaigns for Facebook and Instagram, boosting audience engagement and reach. Optimized content strategy using data insights, enhancing brand visibility and targeted marketing effectiveness.',
-    logo: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=2673&auto=format&fit=crop'
+    description: 'AI-Powered AgriTech System: Led development of AI drone system for crop health monitoring using NDVI technology, boosting farm productivity by 40%. Full-Stack Product Development: Built real-time farm monitoring mobile app and dashboard utilizing NDVI analysis to increase crop yields by 15% and reduce water/fertilizer use by 30%. Algorithm Optimization: Developed path planning algorithms reducing operational costs by 20%.',
+    logo: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?q=80&w=3498&auto=format&fit=crop'
   }
 ];
 

@@ -8,32 +8,27 @@ const skillCategories = [
   {
     title: 'Programming Languages',
     icon: <Code className="w-5 h-5" />,
-    skills: ['Python', 'C', 'C++', 'Java']
+    skills: ['Python', 'C++', 'C', 'Java', 'JavaScript', 'SQL', 'RISC-V Assembly', 'Verilog/SystemVerilog', 'Bash', 'HTML/CSS']
   },
   {
-    title: 'Web Technologies',
+    title: 'Frameworks & Libraries',
     icon: <Terminal className="w-5 h-5" />,
-    skills: ['React.js', 'Node.js', 'Flask', 'Tailwind CSS', 'Vite']
+    skills: ['TensorFlow', 'Keras', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'OpenCV', 'LangChain', 'SpaCy', 'NLTK']
   },
   {
-    title: 'Database Systems',
-    icon: <Database className="w-5 h-5" />,
-    skills: ['MySQL', 'Firebase', 'MongoDB']
+    title: 'Tools & Platforms',
+    icon: <Settings className="w-5 h-5" />,
+    skills: ['Docker', 'Kubernetes', 'Git', 'GitHub', 'MySQL', 'MongoDB', 'Xilinx Vivado', 'RVfpga', 'Cisco Packet Tracer']
   },
   {
-    title: 'Data Science & Machine Learning',
-    icon: <BarChart className="w-5 h-5" />,
-    skills: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow', 'OpenCV', 'LangChain']
-  },
-  {
-    title: 'Cloud Technologies',
+    title: 'Cloud & Platforms',
     icon: <Cloud className="w-5 h-5" />,
-    skills: ['AWS', 'Google Cloud Platform (GCP)', 'Firebase']
+    skills: ['AWS', 'Google Cloud Platform (GCP)', 'Microsoft Azure', 'FPGA', 'ESP32', 'Arduino', 'Linux', 'Windows']
   },
   {
-    title: 'Research Skills',
+    title: 'Soft Skills',
     icon: <Book className="w-5 h-5" />,
-    skills: ['AI/ML Model Development', 'Data Analysis', 'Content Optimization', 'Network Simulation', 'Predictive Analytics', 'Automation Systems']
+    skills: ['Technical Leadership', 'Full-Cycle Project Management', 'Strategic Problem-Solving']
   }
 ];
 

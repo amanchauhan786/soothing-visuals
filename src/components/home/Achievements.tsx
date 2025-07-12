@@ -49,24 +49,11 @@ const Achievements: React.FC = () => {
               <div className="bg-card rounded-lg p-6 shadow-sm">
                 <h3 className="font-semibold text-xl flex items-center gap-2 mb-4">
                   <Award className="h-5 w-5 text-primary" />
-                  Reboot Hackathon 1st Prize
+                  Startup Selected for Venture Acceleration Program (SVAP)
                 </h3>
-                <p className="text-muted-foreground mb-2">IEEE-RAS, VIT Vellore</p>
+                <p className="text-muted-foreground mb-2">University of Toronto</p>
                 <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>Secured 1st place among 30 teams, showcasing innovative problem-solving in robotics and automation.</li>
-                  <li>Developed a real-time LiDAR-based tunnel inspection system.</li>
-                </ul>
-              </div>
-
-              <div className="bg-card rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold text-xl flex items-center gap-2 mb-4">
-                  <Award className="h-5 w-5 text-primary" />
-                  Roboverse Hackathon 2nd Prize
-                </h3>
-                <p className="text-muted-foreground mb-2">IEEE-RAS, VIT Vellore</p>
-                <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>Awarded 2nd place for successfully developing a functional prototype in robotics and AI.</li>
-                  <li>Developed an AI-based animal intrusion alert and plant health monitoring system.</li>
+                  <li>CropSky selected for prestigious venture acceleration program showcasing innovation in AgriTech.</li>
                 </ul>
               </div>
 
@@ -84,22 +71,11 @@ const Achievements: React.FC = () => {
               <div className="bg-card rounded-lg p-6 shadow-sm">
                 <h3 className="font-semibold text-xl flex items-center gap-2 mb-4">
                   <Award className="h-5 w-5 text-primary" />
-                  Agrithon 1st Prize Winner
+                  Agrithon 1st Prize Winner (2x)
                 </h3>
                 <p className="text-muted-foreground mb-2">VIT Vellore</p>
                 <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>Secured 1st place for excellence in agricultural innovation using AI-driven solutions.</li>
-                </ul>
-              </div>
-
-              <div className="bg-card rounded-lg p-6 shadow-sm">
-                <h3 className="font-semibold text-xl flex items-center gap-2 mb-4">
-                  <Award className="h-5 w-5 text-primary" />
-                  IDE Bootcamp 2024 Selected-among Top Finalists
-                </h3>
-                <p className="text-muted-foreground mb-2">NIT Karnataka</p>
-                <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>CropSky selected for a prestigious entrepreneurial bootcamp, focusing on AgriTech innovation.</li>
+                  <li>Awarded 1st Prize twice for Excellence in Agricultural Innovation using AI-driven solutions.</li>
                 </ul>
               </div>
             </div>
@@ -113,12 +89,11 @@ const Achievements: React.FC = () => {
                     <Briefcase className="h-5 w-5 text-primary" />
                     Technical Head
                   </h3>
-                  <span className="text-sm text-muted-foreground">July 2024 - Present</span>
+                  <span className="text-sm text-muted-foreground">Present</span>
                 </div>
-                <p className="text-muted-foreground mb-2">Anti Drug Abuse Club VIT</p>
+                <p className="text-muted-foreground mb-2">Anti-Drug Abuse Club VIT Vellore, India</p>
                 <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>Engineered an interactive awareness website to amplify the club's impact.</li>
-                  <li>Boosted outreach with engaging digital campaigns and dynamic content.</li>
+                  <li>Directed technical strategy and website launch to accelerate growth for a 300+ member community.</li>
                 </ul>
               </div>
 
@@ -126,15 +101,13 @@ const Achievements: React.FC = () => {
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-xl flex items-center gap-2">
                     <Briefcase className="h-5 w-5 text-primary" />
-                    Machine Learning Intern
+                    Conference Coordinator
                   </h3>
-                  <span className="text-sm text-muted-foreground">June 2024 - August 2024</span>
+                  <span className="text-sm text-muted-foreground">2024</span>
                 </div>
-                <p className="text-muted-foreground mb-2">Suvidha Overseas(Foundation)</p>
+                <p className="text-muted-foreground mb-2">ICETITE 2024, Vellore, India</p>
                 <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>Developed and optimized machine learning models using Microsoft Azure ML.</li>
-                  <li>Applied supervised learning techniques to improve predictive accuracy.</li>
-                  <li>Enhanced search engine optimization (SEO) strategies for data-driven insights.</li>
+                  <li>Coordinated the conference with 500+ participants, managing all speakers and attendees.</li>
                 </ul>
               </div>
             </div>
@@ -145,32 +118,16 @@ const Achievements: React.FC = () => {
               <div className="bg-card rounded-lg p-4 flex items-start">
                 <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium">Kharagpur Data Science Hackathon 2025</h3>
-                  <p className="text-sm text-muted-foreground">Jan 2025</p>
+                  <h3 className="font-medium">Machine Learning Operations (MLOps) for Generative AI</h3>
+                  <p className="text-sm text-muted-foreground">Google</p>
                 </div>
               </div>
               
               <div className="bg-card rounded-lg p-4 flex items-start">
                 <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium">ISRO - AI/ML for Geo Data Analysis</h3>
-                  <p className="text-sm text-muted-foreground">Sep 2024</p>
-                </div>
-              </div>
-              
-              <div className="bg-card rounded-lg p-4 flex items-start">
-                <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h3 className="font-medium">Power BI Masterclass</h3>
-                  <p className="text-sm text-muted-foreground">Sep 2024</p>
-                </div>
-              </div>
-              
-              <div className="bg-card rounded-lg p-4 flex items-start">
-                <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h3 className="font-medium">Building Gen AI App Projects with Gemini Pro</h3>
-                  <p className="text-sm text-muted-foreground">Sep 2024</p>
+                  <h3 className="font-medium">AI/ML for Geo Data Analysis</h3>
+                  <p className="text-sm text-muted-foreground">ISRO</p>
                 </div>
               </div>
               
@@ -178,15 +135,23 @@ const Achievements: React.FC = () => {
                 <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                 <div>
                   <h3 className="font-medium">Microsoft Certified: Azure AI Fundamentals</h3>
-                  <p className="text-sm text-muted-foreground">July 2024</p>
+                  <p className="text-sm text-muted-foreground">Microsoft</p>
                 </div>
               </div>
               
               <div className="bg-card rounded-lg p-4 flex items-start">
                 <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium">ISRO- Geospatial Technology for Climate Smart Agriculture</h3>
-                  <p className="text-sm text-muted-foreground">Sep 2023</p>
+                  <h3 className="font-medium">Artificial Intelligence Fundamentals</h3>
+                  <p className="text-sm text-muted-foreground">IBM</p>
+                </div>
+              </div>
+              
+              <div className="bg-card rounded-lg p-4 flex items-start">
+                <Check className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-medium">Computer Vision Lab Badge</h3>
+                  <p className="text-sm text-muted-foreground">WorldQuant University</p>
                 </div>
               </div>
             </div>
