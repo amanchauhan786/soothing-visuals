@@ -7,7 +7,7 @@ const projects = [
   {
     title: 'Nirakshit – Disaster Management System',
     description: 'Architected a real-time fault identification system using LiDAR and IoT devices (ESP32, Arduino), achieving 95% accuracy in structural crack detection and reducing inspection time by 60% with a computer vision pipeline. Tech: Python, C++, ROS2, OpenCV, ESP32, Arduino, YD-LiDARX2',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2676&auto=format&fit=crop',
     category: 'Computer Vision',
     link: '#',
     github: '#'
@@ -15,7 +15,7 @@ const projects = [
   {
     title: 'Airly Vision – Urban Air Quality Forecasting',
     description: 'Engineered a scalable data science pipeline to process and analyze over 10 GB of urban air quality data daily, deploying high-accuracy predictive models that reduced model inference time by 20%. Tech: Python, Pandas, Scikit-learn, TensorFlow, Plotly, Flask',
-    image: 'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0?q=80&w=2535&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2670&auto=format&fit=crop',
     category: 'Data Science',
     link: '#',
     github: '#'
@@ -23,7 +23,7 @@ const projects = [
   {
     title: 'Vihara – Travel Planning Platform',
     description: 'Developed a full-stack AI travel platform that provided advanced route optimization, reducing users\' average travel time by 15% and cutting estimated fuel costs by 20%. Tech: React.js, Node.js, Firebase, Google Gemini API, RESTful APIs',
-    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2535&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2621&auto=format&fit=crop',
     category: 'Full-Stack',
     link: '#',
     github: '#'
@@ -31,7 +31,7 @@ const projects = [
   {
     title: 'SafeNest – AI-Driven Geofencing & Security',
     description: 'Designed a predictive modeling system for security achieving 90% accuracy in anomaly detection and implemented custom geofencing algorithms for real-time geospatial analysis, improving data efficiency by 25%. Tech: Python, Machine Learning, Geofencing Algorithms, Cisco Packet Tracer',
-    image: 'https://images.unsplash.com/photo-1576153192396-180ecef2a715?q=80&w=2674&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2670&auto=format&fit=crop',
     category: 'IoT',
     link: '#',
     github: '#'

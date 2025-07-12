@@ -10,14 +10,14 @@ const experiences = [
     company: 'Indian Institute of Technology, Roorkee',
     period: 'May 2025 - July 2025',
     description: 'FPGA-Based TinyML Research: Created and deployed TinyML models for real-time inference on ESP32/Arduino, including a 90%+ accuracy OCR model. RISC-V Simulation & Verification: Utilized simulation-driven development tools to implement and verify programs on RISC-V core, reducing verification time by 30%. Hardware-Software Co-Design: Optimized RGB-to-Grayscale algorithm achieving 4x speedup on simulated FPGA platform.',
-    logo: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2486&auto=format&fit=crop'
+    logo: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop'
   },
   {
     title: 'Co-founder',
     company: 'CropSky, VITTBI-Preincubated Startup',
     period: 'Aug 2024 - Present',
     description: 'AI-Powered AgriTech System: Led development of AI drone system for crop health monitoring using NDVI technology, boosting farm productivity by 40%. Full-Stack Product Development: Built real-time farm monitoring mobile app and dashboard utilizing NDVI analysis to increase crop yields by 15% and reduce water/fertilizer use by 30%. Algorithm Optimization: Developed path planning algorithms reducing operational costs by 20%.',
-    logo: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?q=80&w=3498&auto=format&fit=crop'
+    logo: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2532&auto=format&fit=crop'
   }
 ];
 
