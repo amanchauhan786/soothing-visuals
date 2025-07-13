@@ -3,18 +3,20 @@ import React, { useEffect, useRef } from 'react';
 import { useTypewriter } from '@/utils/animations';
 import { ArrowRight } from 'lucide-react';
 
-// Sample profile images (using Unsplash images only)
+// Profile images relevant to Aman's work and interests
 const profileImages = [
-  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2584&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2712&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop', // Tech workspace
+  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=3543&auto=format&fit=crop', // Programming
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop', // Circuit board
+  'https://images.unsplash.com/photo-1574781330855-d0db2706b3d0?q=80&w=2670&auto=format&fit=crop', // AI/ML visualization
+  'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?q=80&w=3498&auto=format&fit=crop', // Drone technology
 ];
 
 export const Hero: React.FC = () => {
   const { displayText: title } = useTypewriter(' AMAN CHAUHAN', 100, 500);
   
   // Refs for image elements
-  const imageRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
+  const imageRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
   
   // Carousel animation
   useEffect(() => {
@@ -96,8 +98,8 @@ export const Hero: React.FC = () => {
                 key={index}
                 ref={imageRefs[index]}
                 src={src}
-                alt={`Profile ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+                alt={`Tech workspace ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl transition-opacity duration-1000 hover-scale ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
               />
             ))}
             

@@ -16,6 +16,11 @@ const galleryImages = [
     category: 'Research'
   },
   {
+    url: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2670&auto=format&fit=crop',
+    alt: 'ESP32 Microcontroller - TinyML and IoT Development',
+    category: 'Hardware'
+  },
+  {
     url: 'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?q=80&w=3498&auto=format&fit=crop',
     alt: 'AgriTech Drone - CropSky AI-Powered Monitoring System',
     category: 'Innovation'
@@ -152,14 +157,14 @@ export const Gallery: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent"></div>
                     
-                    {/* Image caption */}
-                    <div className="absolute bottom-8 left-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* Always visible image caption */}
+                    <div className="absolute bottom-8 left-8 right-8">
                       <div className="mb-2">
-                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
+                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full backdrop-blur-sm">
                           {image.category}
                         </span>
                       </div>
-                      <p className="text-white text-lg font-medium">
+                      <p className="text-white text-lg font-medium drop-shadow-lg">
                         {image.alt}
                       </p>
                     </div>
