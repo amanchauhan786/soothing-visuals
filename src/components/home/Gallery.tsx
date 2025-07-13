@@ -133,10 +133,10 @@ export const Gallery: React.FC = () => {
           {/* Gallery container */}
           <div 
             ref={galleryRef}
-            className="overflow-hidden rounded-xl shadow-2xl"
+            className="overflow-hidden rounded-xl shadow-lg"
           >
             <div 
-              className="flex transition-transform duration-1000 ease-in-out"
+              className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
               {galleryImages.map((image, index) => (
@@ -145,34 +145,21 @@ export const Gallery: React.FC = () => {
                     <img 
                       src={image.url} 
                       alt={image.alt}
-                      className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 ${
-                        activeIndex === index ? 'brightness-110 contrast-110' : 'brightness-90'
-                      }`}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                       style={{ 
-                        transform: `scale(${isInView ? '1' : '0.95'})`,
-                        animation: activeIndex === index && isInView ? 'float 8s ease-in-out infinite, shimmer 3s ease-in-out infinite' : 'none'
+                        filter: activeIndex === index ? 'brightness(1)' : 'brightness(0.9)'
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20 group-hover:from-background/60 transition-all duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent"></div>
                     
-                    {/* Animated overlay effects */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute top-4 right-4">
-                        <div className="w-3 h-3 bg-primary rounded-full animate-ping"></div>
-                      </div>
-                      <div className="absolute bottom-4 left-4">
-                        <div className="w-2 h-2 bg-secondary rounded-full animate-bounce delay-100"></div>
-                      </div>
-                    </div>
-                    
-                    {/* Enhanced image caption with category */}
-                    <div className="absolute bottom-8 left-8 right-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    {/* Image caption */}
+                    <div className="absolute bottom-8 left-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="mb-2">
-                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-primary/80 text-primary-foreground rounded-full backdrop-blur-sm">
+                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
                           {image.category}
                         </span>
                       </div>
-                      <p className="text-white text-lg font-medium drop-shadow-lg group-hover:drop-shadow-xl transition-all duration-300">
+                      <p className="text-white text-lg font-medium">
                         {image.alt}
                       </p>
                     </div>
@@ -192,21 +179,13 @@ export const Gallery: React.FC = () => {
                   setActiveIndex(index);
                   setTimeout(() => setIsScrolling(false), 1000);
                 }}
-                className={`group relative transition-all duration-500 hover:scale-125 ${
+                className={`transition-all duration-300 hover:scale-110 ${
                   activeIndex === index 
-                    ? 'w-12 h-3 bg-primary shadow-lg shadow-primary/50' 
-                    : 'w-3 h-3 bg-muted-foreground/40 hover:bg-muted-foreground/80'
-                } rounded-full overflow-hidden`}
+                    ? 'w-12 h-3 bg-primary' 
+                    : 'w-3 h-3 bg-muted-foreground/50 hover:bg-muted-foreground/80'
+                } rounded-full`}
                 aria-label={`Go to ${image.category}: ${image.alt}`}
               >
-                {activeIndex === index && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/20 to-transparent animate-pulse"></div>
-                )}
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <div className="bg-background/90 backdrop-blur-sm text-xs px-2 py-1 rounded whitespace-nowrap">
-                    {image.category}
-                  </div>
-                </div>
               </button>
             ))}
           </div>
