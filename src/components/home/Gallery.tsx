@@ -3,11 +3,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useInView } from '@/utils/animations';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Gallery images related to your work and expertise
+// Gallery images related to your work and expertise journey
 const galleryImages = [
   {
     url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop',
     alt: 'FPGA Circuit Board - Hardware Research at IIT Roorkee',
+    category: 'Research'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1485833077593-4278bba3f11f?q=80&w=2670&auto=format&fit=crop',
+    alt: 'RISC-V Simulation & Verification - Hardware-Software Co-Design',
     category: 'Research'
   },
   {
@@ -16,9 +21,19 @@ const galleryImages = [
     category: 'Innovation'
   },
   {
+    url: 'https://images.unsplash.com/photo-1574781330855-d0db2706b3d0?q=80&w=2670&auto=format&fit=crop',
+    alt: 'TinyML Models - ESP32/Arduino Real-time Inference',
+    category: 'AI/ML'
+  },
+  {
     url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2676&auto=format&fit=crop',
     alt: 'Disaster Management - Nirakshit Fault Detection System',
     category: 'AI/ML'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2670&auto=format&fit=crop',
+    alt: 'Air Quality Monitoring - Airly Vision Data Analysis',
+    category: 'Environment'
   },
   {
     url: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=3543&auto=format&fit=crop',
@@ -31,11 +46,6 @@ const galleryImages = [
     category: 'Security'
   },
   {
-    url: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2670&auto=format&fit=crop',
-    alt: 'Air Quality Monitoring - Airly Vision Data Analysis',
-    category: 'Environment'
-  },
-  {
     url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2621&auto=format&fit=crop',
     alt: 'Travel Platform - Vihara Route Optimization',
     category: 'Full-Stack'
@@ -44,6 +54,16 @@ const galleryImages = [
     url: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2486&auto=format&fit=crop',
     alt: 'Academic Excellence - VIT University Campus',
     category: 'Education'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2670&auto=format&fit=crop',
+    alt: 'Machine Learning Operations - MLOps for Generative AI',
+    category: 'AI/ML'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2584&auto=format&fit=crop',
+    alt: 'Full-Cycle Project Management - Technical Leadership',
+    category: 'Leadership'
   },
 ];
 
@@ -66,15 +86,9 @@ export const Gallery: React.FC = () => {
     return () => clearInterval(intervalId);
   }, [isInView, isScrolling]);
   
-  // Scroll to active image
+  // Fixed smooth transition animation
   useEffect(() => {
-    if (galleryRef.current) {
-      const scrollAmount = activeIndex * (galleryRef.current.scrollWidth / galleryImages.length);
-      galleryRef.current.scrollTo({
-        left: scrollAmount,
-        behavior: 'smooth',
-      });
-    }
+    // No need for scroll behavior since we're using transform
   }, [activeIndex]);
   
   const handleNext = () => {
@@ -119,22 +133,24 @@ export const Gallery: React.FC = () => {
           {/* Gallery container */}
           <div 
             ref={galleryRef}
-            className="overflow-hidden rounded-xl shadow-lg"
+            className="overflow-hidden rounded-xl shadow-2xl"
           >
-            <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+            <div 
+              className="flex transition-transform duration-1000 ease-in-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
               {galleryImages.map((image, index) => (
                 <div key={index} className="min-w-full relative group">
                   <div className="relative h-[50vh] overflow-hidden">
                     <img 
                       src={image.url} 
                       alt={image.alt}
-                      className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
-                        activeIndex === index ? 'animate-pulse' : ''
+                      className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 ${
+                        activeIndex === index ? 'brightness-110 contrast-110' : 'brightness-90'
                       }`}
                       style={{ 
-                        transform: `scale(${isInView ? '1.02' : '1'})`,
-                        filter: activeIndex === index ? 'brightness(1.1) contrast(1.1)' : 'brightness(0.9)',
-                        animation: activeIndex === index && isInView ? 'float 6s ease-in-out infinite' : 'none'
+                        transform: `scale(${isInView ? '1' : '0.95'})`,
+                        animation: activeIndex === index && isInView ? 'float 8s ease-in-out infinite, shimmer 3s ease-in-out infinite' : 'none'
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20 group-hover:from-background/60 transition-all duration-500"></div>

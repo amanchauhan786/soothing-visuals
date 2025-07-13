@@ -123,7 +123,7 @@ export const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-primary w-full flex items-center justify-center"
+                  className="btn-primary w-full flex items-center justify-center hover-scale group transition-all duration-300"
                 >
                   {isSubmitting ? (
                     <span className="inline-flex items-center">
@@ -136,7 +136,7 @@ export const Contact: React.FC = () => {
                   ) : (
                     <span className="inline-flex items-center">
                       Send Message
-                      <Send className="ml-2 w-4 h-4" />
+                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </span>
                   )}
                 </button>
@@ -192,7 +192,7 @@ export const Contact: React.FC = () => {
                   <div className="flex space-x-4">
                     <a 
                       href="https://www.linkedin.com/in/aman-chauhan-128552256/" 
-                      className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+                      className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover-scale hover:shadow-lg hover:shadow-primary/25"
                       aria-label="LinkedIn"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -201,7 +201,7 @@ export const Contact: React.FC = () => {
                     </a>
                     <a 
                       href="https://github.com/amanchauhan786" 
-                      className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+                      className="p-3 rounded-full bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover-scale hover:shadow-lg hover:shadow-primary/25"
                       aria-label="GitHub"
                       target="_blank"
                       rel="noopener noreferrer"

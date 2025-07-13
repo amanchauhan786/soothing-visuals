@@ -53,15 +53,20 @@ export const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between w-full max-w-full">
         <a 
           href="#home" 
-          className="text-xl font-bold tracking-tight relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          className="text-xl font-bold tracking-tight relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 hover:scale-110 transition-transform duration-300"
         >
           AC
         </a>
 
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-1">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="nav-link">
+          {navLinks.map((link, index) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="nav-link hover-scale"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               {link.name}
             </a>
           ))}

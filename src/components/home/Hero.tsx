@@ -74,16 +74,16 @@ export const Hero: React.FC = () => {
             <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-blink ml-1"></span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
-            Creating elegant user experiences with a focus on minimalism, function, and attention to detail.
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            Computer Science Engineering Student | FPGA-Based TinyML Researcher | AI/ML Innovator | Co-Founder at CropSky
           </p>
           
-          <div className="flex flex-wrap gap-4">
-            <a href="#projects" className="btn-primary">
+          <div className="flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+            <a href="#projects" className="btn-primary hover-scale group">
               View Projects
-              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+              <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
-            <a href="#contact" className="btn-secondary">
+            <a href="#contact" className="btn-secondary hover-scale">
               Get in Touch
             </a>
           </div>
