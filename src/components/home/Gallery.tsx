@@ -3,16 +3,43 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useInView } from '@/utils/animations';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Import the new tech workspace images
+import techWorkspace1 from '@/assets/tech-workspace-1.jpg';
+import techWorkspace2 from '@/assets/tech-workspace-2.jpg';
+import techWorkspace3 from '@/assets/tech-workspace-3.jpg';
+import techWorkspace4 from '@/assets/tech-workspace-4.jpg';
+import techWorkspace5 from '@/assets/tech-workspace-5.jpg';
+
 // Gallery images related to your work and expertise journey
 const galleryImages = [
   {
-    url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop',
-    alt: 'FPGA Circuit Board - Hardware Research at IIT Roorkee',
+    url: techWorkspace1,
+    alt: 'Modern Tech Workspace - Multi-monitor Development Setup',
+    category: 'Workspace'
+  },
+  {
+    url: techWorkspace2,
+    alt: 'RISC-V Assembly Development - ESP32 & Arduino Programming',
+    category: 'Hardware'
+  },
+  {
+    url: techWorkspace3,
+    alt: 'FPGA Development Environment - Xilinx Vivado Workspace',
     category: 'Research'
   },
   {
-    url: 'https://images.unsplash.com/photo-1485833077593-4278bba3f11f?q=80&w=2670&auto=format&fit=crop',
-    alt: 'RISC-V Simulation & Verification - Hardware-Software Co-Design',
+    url: techWorkspace4,
+    alt: 'AI/ML Development Setup - TensorFlow & PyTorch Environment',
+    category: 'AI/ML'
+  },
+  {
+    url: techWorkspace5,
+    alt: 'Drone Development Lab - CropSky AgriTech Innovation',
+    category: 'Innovation'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop',
+    alt: 'FPGA Circuit Board - Hardware Research at IIT Roorkee',
     category: 'Research'
   },
   {
@@ -42,7 +69,7 @@ const galleryImages = [
   },
   {
     url: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=3543&auto=format&fit=crop',
-    alt: 'Programming and Development Environment',
+    alt: 'Programming Environment - Code Development Setup',
     category: 'Development'
   },
   {
@@ -67,7 +94,7 @@ const galleryImages = [
   },
   {
     url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2584&auto=format&fit=crop',
-    alt: 'Full-Cycle Project Management - Technical Leadership',
+    alt: 'Technical Leadership - Full-Cycle Project Management',
     category: 'Leadership'
   },
 ];
