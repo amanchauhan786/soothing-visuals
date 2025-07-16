@@ -1,110 +1,177 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTypewriter } from '@/utils/animations';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain } from 'lucide-react';
 
-// Profile images relevant to Aman's work and interests
-const profileImages = [
-  'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop', // Tech workspace
-  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=3543&auto=format&fit=crop', // Programming
-  'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=5530&auto=format&fit=crop', // Circuit board
-  'https://images.unsplash.com/photo-1574781330855-d0db2706b3d0?q=80&w=2670&auto=format&fit=crop', // AI/ML visualization
-  'https://images.unsplash.com/photo-1487887235947-a955ef187fcc?q=80&w=3498&auto=format&fit=crop', // Drone technology
+// Tech skills with icons for interactive display
+const techSkills = [
+  { name: 'FPGA Design', icon: Cpu, color: 'text-blue-500' },
+  { name: 'AI/ML', icon: Brain, color: 'text-purple-500' },
+  { name: 'Full-Stack', icon: Code, color: 'text-green-500' },
+  { name: 'TinyML', icon: Zap, color: 'text-yellow-500' },
+  { name: 'Innovation', icon: Rocket, color: 'text-red-500' },
+  { name: 'Research', icon: Sparkles, color: 'text-cyan-500' },
 ];
 
 export const Hero: React.FC = () => {
   const { displayText: title } = useTypewriter(' AMAN CHAUHAN', 100, 500);
+  const [activeSkill, setActiveSkill] = useState(0);
   
-  // Refs for image elements
-  const imageRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
-  
-  // Carousel animation
+  // Rotate through skills automatically
   useEffect(() => {
-    let currentIndex = 0;
     const interval = setInterval(() => {
-      // Hide current image
-      if (imageRefs[currentIndex].current) {
-        imageRefs[currentIndex].current!.classList.remove('opacity-100');
-        imageRefs[currentIndex].current!.classList.add('opacity-0');
-      }
-      
-      // Update index
-      currentIndex = (currentIndex + 1) % imageRefs.length;
-      
-      // Show next image
-      if (imageRefs[currentIndex].current) {
-        imageRefs[currentIndex].current!.classList.remove('opacity-0');
-        imageRefs[currentIndex].current!.classList.add('opacity-100');
-      }
-    }, 3000);
+      setActiveSkill((prev) => (prev + 1) % techSkills.length);
+    }, 2000);
     
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-transparent to-secondary/40 dark:to-secondary/10"></div>
+      {/* Enhanced background with animated gradient */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-secondary/20 dark:from-primary/10 dark:to-secondary/5"></div>
       
-      {/* Floating particles background */}
+      {/* Animated geometric shapes */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 30 }).map((_, i) => (
           <div 
             key={i}
-            className="absolute rounded-full bg-primary/10 animate-float"
+            className="absolute animate-float"
             style={{
-              width: `${Math.random() * 100 + 50}px`,
-              height: `${Math.random() * 100 + 50}px`,
+              width: `${Math.random() * 20 + 10}px`,
+              height: `${Math.random() * 20 + 10}px`,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${Math.random() * 10 + 10}s`,
+              animationDuration: `${Math.random() * 10 + 15}s`,
+              background: `hsl(${Math.random() * 360}, 70%, 60%)`,
+              opacity: 0.1,
+              borderRadius: Math.random() > 0.5 ? '50%' : '0%',
+              transform: `rotate(${Math.random() * 360}deg)`,
             }}
-          ></div>
+          />
+        ))}
+      </div>
+      
+      {/* Floating code particles */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {['{}', '</>', '[]', '()', ';;', '==', '++', '--'].map((symbol, i) => (
+          <div 
+            key={i}
+            className="absolute text-primary/20 font-mono font-bold animate-float"
+            style={{
+              fontSize: `${Math.random() * 30 + 20}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 15 + 20}s`,
+            }}
+          >
+            {symbol}
+          </div>
         ))}
       </div>
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         <div className="w-full lg:w-1/2 stagger-animation">
-          <div className="mb-2 inline-block">
-            <span className="inline-block px-3 py-1 text-sm font-medium bg-accent/20 text-accent-foreground rounded-full">
-              PawanCoder786
+          <div className="mb-4 inline-block animate-slide-in-left">
+            <span className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary/20 to-secondary/20 text-primary rounded-full border border-primary/20">
+              🚀 PawanCoder786
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 relative">
-            <span className="inline-block">{title}</span>
-            <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-blink ml-1"></span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 relative animate-fade-in">
+            <span className="inline-block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              {title}
+            </span>
+            <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-pulse ml-1"></span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in leading-relaxed" style={{ animationDelay: '0.8s' }}>
             Computer Science Engineering Student | FPGA-Based TinyML Researcher | AI/ML Innovator | Co-Founder at CropSky
           </p>
           
           <div className="flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: '1.2s' }}>
-            <a href="#projects" className="btn-primary hover-scale group">
-              View Projects
-              <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            <a href="#projects" className="btn-primary hover-scale group relative overflow-hidden">
+              <span className="relative z-10">View Projects</span>
+              <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </a>
-            <a href="#contact" className="btn-secondary hover-scale">
-              Get in Touch
+            <a href="#contact" className="btn-secondary hover-scale group">
+              <span className="group-hover:scale-110 transition-transform duration-300">Get in Touch</span>
             </a>
           </div>
         </div>
         
+        {/* Interactive Tech Skills Display */}
         <div className="w-full lg:w-1/2 mt-16 lg:mt-0">
           <div className="relative h-80 md:h-96 w-full max-w-md mx-auto">
-            {profileImages.map((src, index) => (
-              <img
-                key={index}
-                ref={imageRefs[index]}
-                src={src}
-                alt={`Tech workspace ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl transition-opacity duration-1000 hover-scale ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
-              />
-            ))}
+            {/* Central hub */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                <Code className="w-12 h-12 text-white" />
+              </div>
+            </div>
             
-            {/* Image overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent rounded-3xl"></div>
+            {/* Orbiting skill icons */}
+            {techSkills.map((skill, index) => {
+              const angle = (index / techSkills.length) * 360;
+              const radius = 120;
+              const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+              const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+              const IconComponent = skill.icon;
+              
+              return (
+                <div
+                  key={index}
+                  className={`absolute w-16 h-16 rounded-full border-2 border-primary/20 flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-125 ${
+                    activeSkill === index 
+                      ? 'bg-primary text-white shadow-lg shadow-primary/50 scale-110' 
+                      : 'bg-background/80 backdrop-blur-sm hover:bg-primary/10'
+                  }`}
+                  style={{
+                    transform: `translate(${x}px, ${y}px)`,
+                    animation: `orbit 20s linear infinite`,
+                    animationDelay: `${index * 0.5}s`,
+                  }}
+                  onClick={() => setActiveSkill(index)}
+                >
+                  <IconComponent className={`w-8 h-8 ${activeSkill === index ? 'text-white' : skill.color}`} />
+                </div>
+              );
+            })}
+            
+            {/* Skill name display */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
+              <div className="bg-background/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/20 min-w-32">
+                <span className="text-sm font-medium text-primary">
+                  {techSkills[activeSkill].name}
+                </span>
+              </div>
+            </div>
+            
+            {/* Connecting lines */}
+            <div className="absolute inset-0 pointer-events-none">
+              {techSkills.map((_, index) => {
+                const angle = (index / techSkills.length) * 360;
+                const radius = 120;
+                const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+                const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`absolute w-0.5 bg-gradient-to-r from-primary/20 to-transparent transition-all duration-500 ${
+                      activeSkill === index ? 'opacity-100' : 'opacity-30'
+                    }`}
+                    style={{
+                      height: `${radius}px`,
+                      transform: `translate(${x + 192}px, ${y + 192}px) rotate(${angle + 90}deg)`,
+                      transformOrigin: 'bottom center',
+                    }}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
