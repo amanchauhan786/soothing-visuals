@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useTypewriter } from '@/utils/animations';
-import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain } from 'lucide-react';
+import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain, Star, Hexagon } from 'lucide-react';
 
 // Tech skills with icons for interactive display
 const techSkills = [
@@ -12,9 +12,135 @@ const techSkills = [
   { name: 'Research', icon: Sparkles, color: 'text-cyan-500' },
 ];
 
+// Particle system for enhanced visual effects
+const ParticleSystem = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      color: string;
+      life: number;
+      maxLife: number;
+    }> = [];
+    
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    
+    const createParticle = (x: number, y: number) => {
+      return {
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 3 + 1,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+        life: 0,
+        maxLife: Math.random() * 100 + 50,
+      };
+    };
+    
+    const updateParticles = () => {
+      particles.forEach((particle, index) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.life++;
+        
+        // Remove dead particles
+        if (particle.life > particle.maxLife) {
+          particles.splice(index, 1);
+        }
+      });
+      
+      // Add new particles occasionally
+      if (Math.random() < 0.02) {
+        particles.push(createParticle(Math.random() * canvas.width, Math.random() * canvas.height));
+      }
+    };
+    
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        const alpha = 1 - (particle.life / particle.maxLife);
+        ctx.globalAlpha = alpha * 0.5;
+        ctx.fillStyle = particle.color;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Connect nearby particles
+        particles.forEach(other => {
+          const dx = particle.x - other.x;
+          const dy = particle.y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 100) {
+            ctx.globalAlpha = (1 - distance / 100) * 0.2;
+            ctx.strokeStyle = particle.color;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.stroke();
+          }
+        });
+      });
+    };
+    
+    const animate = () => {
+      updateParticles();
+      drawParticles();
+      requestAnimationFrame(animate);
+    };
+    
+    resizeCanvas();
+    animate();
+    
+    // Initialize with some particles
+    for (let i = 0; i < 20; i++) {
+      particles.push(createParticle(Math.random() * canvas.width, Math.random() * canvas.height));
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
+  
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 -z-10 pointer-events-none"
+      style={{ opacity: 0.3 }}
+    />
+  );
+};
+
 export const Hero: React.FC = () => {
   const { displayText: title } = useTypewriter(' AMAN CHAUHAN', 100, 500);
   const [activeSkill, setActiveSkill] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  // Mouse tracking for interactive effects
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
   
   // Rotate through skills automatically
   useEffect(() => {
@@ -27,8 +153,22 @@ export const Hero: React.FC = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-      {/* Enhanced background with animated gradient */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-secondary/20 dark:from-primary/10 dark:to-secondary/5"></div>
+      {/* Particle System */}
+      <ParticleSystem />
+      
+      {/* Dynamic gradient background that follows mouse */}
+      <div 
+        className="absolute inset-0 -z-10 transition-all duration-1000 ease-out"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, 
+            rgba(var(--primary), 0.1) 0%, 
+            rgba(var(--secondary), 0.05) 40%, 
+            transparent 70%)`
+        }}
+      />
+      
+      {/* Animated mesh background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/3 via-transparent to-secondary/10 dark:from-primary/5 dark:to-secondary/3"></div>
       
       {/* Animated geometric shapes */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -52,18 +192,56 @@ export const Hero: React.FC = () => {
         ))}
       </div>
       
-      {/* Floating code particles */}
+      {/* Matrix rain effect */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {['{}', '</>', '[]', '()', ';;', '==', '++', '--'].map((symbol, i) => (
+        {Array.from({ length: 50 }).map((_, i) => (
           <div 
             key={i}
-            className="absolute text-primary/20 font-mono font-bold animate-float"
+            className="absolute text-primary/10 font-mono text-sm"
             style={{
-              fontSize: `${Math.random() * 30 + 20}px`,
+              left: `${Math.random() * 100}%`,
+              animation: `matrix-rain ${Math.random() * 5 + 5}s linear infinite`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          >
+            {Math.random().toString(36).substr(2, 1)}
+          </div>
+        ))}
+      </div>
+      
+      {/* Morphing geometric shapes */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div 
+            key={i}
+            className="absolute bg-gradient-to-br from-primary/5 to-secondary/5 backdrop-blur-sm"
+            style={{
+              width: `${Math.random() * 200 + 100}px`,
+              height: `${Math.random() * 200 + 100}px`,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
+              animation: `morphing ${Math.random() * 10 + 10}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${Math.random() * 15 + 20}s`,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Floating code symbols with enhanced animations */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {['{}', '</>', '[]', '()', ';;', '==', '++', '--', 'AI', 'ML', 'IoT', 'FPGA'].map((symbol, i) => (
+          <div 
+            key={i}
+            className="absolute text-primary/20 font-mono font-bold cursor-pointer hover:text-primary/40 transition-colors duration-300"
+            style={{
+              fontSize: `${Math.random() * 40 + 20}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${Math.random() * 15 + 20}s ease-in-out infinite, glow ${Math.random() * 3 + 2}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.animation += ', bounce-in 0.5s ease-out';
             }}
           >
             {symbol}
@@ -73,17 +251,23 @@ export const Hero: React.FC = () => {
       
       <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
         <div className="w-full lg:w-1/2 stagger-animation">
-          <div className="mb-4 inline-block animate-slide-in-left">
-            <span className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary/20 to-secondary/20 text-primary rounded-full border border-primary/20">
+          <div className="mb-4 inline-block animate-[slideInLeft_0.8s_ease-out]">
+            <span className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary/20 to-secondary/20 text-primary rounded-full border border-primary/20 hover:scale-105 transition-transform duration-300 hover:shadow-lg">
               🚀 PawanCoder786
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 relative animate-fade-in">
-            <span className="inline-block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 relative animate-[slideInUp_1s_ease-out]">
+            <span 
+              className="inline-block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:animate-[text-shadow-pop_1s_ease-in-out] cursor-pointer"
+              style={{
+                backgroundSize: '200% 200%',
+                animation: 'gradient-x 3s ease infinite',
+              }}
+            >
               {title}
             </span>
-            <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-pulse ml-1"></span>
+            <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-[blink_1s_infinite] ml-1"></span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in leading-relaxed" style={{ animationDelay: '0.8s' }}>
