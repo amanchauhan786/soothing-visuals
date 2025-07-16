@@ -13,81 +13,106 @@ const techSkills = [
 ];
 
 export const Hero: React.FC = () => {
-  const { displayText: title } = useTypewriter('AMAN CHAUHAN', 80, 300);
+  const { displayText: title } = useTypewriter(' AMAN CHAUHAN', 100, 500);
   const [activeSkill, setActiveSkill] = useState(0);
   
   // Rotate through skills automatically
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSkill((prev) => (prev + 1) % techSkills.length);
-    }, 3000);
+    }, 2000);
     
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-      {/* Simple gradient background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
+      {/* Enhanced background with animated gradient */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-secondary/20 dark:from-primary/10 dark:to-secondary/5"></div>
       
-      {/* Subtle floating elements */}
+      {/* Animated geometric shapes */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 30 }).map((_, i) => (
           <div 
             key={i}
-            className="absolute w-2 h-2 bg-primary/20 rounded-full animate-float"
+            className="absolute animate-float"
             style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 15}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${4 + i}s`,
+              width: `${Math.random() * 20 + 10}px`,
+              height: `${Math.random() * 20 + 10}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 10 + 15}s`,
+              background: `hsl(${Math.random() * 360}, 70%, 60%)`,
+              opacity: 0.1,
+              borderRadius: Math.random() > 0.5 ? '50%' : '0%',
+              transform: `rotate(${Math.random() * 360}deg)`,
             }}
           />
         ))}
       </div>
       
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
-        {/* Left side - Text content */}
-        <div className="w-full lg:w-1/2 text-center lg:text-left">
-          <div className="mb-6 inline-block animate-fade-in">
-            <span className="inline-block px-4 py-2 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+      {/* Floating code particles */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {['{}', '</>', '[]', '()', ';;', '==', '++', '--'].map((symbol, i) => (
+          <div 
+            key={i}
+            className="absolute text-primary/20 font-mono font-bold animate-float"
+            style={{
+              fontSize: `${Math.random() * 30 + 20}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 15 + 20}s`,
+            }}
+          >
+            {symbol}
+          </div>
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+        <div className="w-full lg:w-1/2 stagger-animation">
+          <div className="mb-4 inline-block animate-slide-in-left">
+            <span className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary/20 to-secondary/20 text-primary rounded-full border border-primary/20">
               🚀 PawanCoder786
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <span className="text-foreground">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 relative animate-fade-in">
+            <span className="inline-block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               {title}
             </span>
-            <span className="inline-block w-1 h-12 md:h-16 bg-primary animate-pulse ml-2"></span>
+            <span className="inline-block w-1 h-8 md:h-12 bg-primary animate-pulse ml-1"></span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl animate-fade-in leading-relaxed" style={{ animationDelay: '0.4s' }}>
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in leading-relaxed" style={{ animationDelay: '0.8s' }}>
             Computer Science Engineering Student | FPGA-Based TinyML Researcher | AI/ML Innovator | Co-Founder at CropSky
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <a href="#projects" className="btn-primary hover:scale-105 transition-transform duration-300 group">
-              View Projects
-              <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          <div className="flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+            <a href="#projects" className="btn-primary hover-scale group relative overflow-hidden">
+              <span className="relative z-10">View Projects</span>
+              <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </a>
-            <a href="#contact" className="btn-secondary hover:scale-105 transition-transform duration-300">
-              Get in Touch
+            <a href="#contact" className="btn-secondary hover-scale group">
+              <span className="group-hover:scale-110 transition-transform duration-300">Get in Touch</span>
             </a>
           </div>
         </div>
         
-        {/* Right side - Simple skill display */}
-        <div className="w-full lg:w-1/2 flex justify-center">
-          <div className="relative w-80 h-80 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-            {/* Center icon */}
+        {/* Interactive Tech Skills Display */}
+        <div className="w-full lg:w-1/2 mt-16 lg:mt-0">
+          <div className="relative h-80 md:h-96 w-full max-w-md mx-auto">
+            {/* Central hub */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                <Code className="w-10 h-10 text-white" />
+              <div className="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                <Code className="w-12 h-12 text-white" />
               </div>
             </div>
             
-            {/* Skill icons in a circle */}
+            {/* Orbiting skill icons */}
             {techSkills.map((skill, index) => {
               const angle = (index / techSkills.length) * 360;
               const radius = 120;
@@ -98,13 +123,15 @@ export const Hero: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className={`absolute w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-110 ${
+                  className={`absolute w-16 h-16 rounded-full border-2 border-primary/20 flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-125 ${
                     activeSkill === index 
-                      ? 'bg-primary text-white shadow-lg scale-110' 
-                      : 'bg-background border-2 border-primary/20 hover:border-primary/40'
+                      ? 'bg-primary text-white shadow-lg shadow-primary/50 scale-110' 
+                      : 'bg-background/80 backdrop-blur-sm hover:bg-primary/10'
                   }`}
                   style={{
-                    transform: `translate(${x + 152}px, ${y + 152}px)`,
+                    transform: `translate(${x}px, ${y}px)`,
+                    animation: `orbit 20s linear infinite`,
+                    animationDelay: `${index * 0.5}s`,
                   }}
                   onClick={() => setActiveSkill(index)}
                 >
@@ -113,13 +140,37 @@ export const Hero: React.FC = () => {
               );
             })}
             
-            {/* Current skill name */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-fade-in">
-              <div className="bg-background/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/20 shadow-sm">
-                <span className="text-lg font-semibold text-primary">
+            {/* Skill name display */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
+              <div className="bg-background/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/20 min-w-32">
+                <span className="text-sm font-medium text-primary">
                   {techSkills[activeSkill].name}
                 </span>
               </div>
+            </div>
+            
+            {/* Connecting lines */}
+            <div className="absolute inset-0 pointer-events-none">
+              {techSkills.map((_, index) => {
+                const angle = (index / techSkills.length) * 360;
+                const radius = 120;
+                const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+                const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`absolute w-0.5 bg-gradient-to-r from-primary/20 to-transparent transition-all duration-500 ${
+                      activeSkill === index ? 'opacity-100' : 'opacity-30'
+                    }`}
+                    style={{
+                      height: `${radius}px`,
+                      transform: `translate(${x + 192}px, ${y + 192}px) rotate(${angle + 90}deg)`,
+                      transformOrigin: 'bottom center',
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
