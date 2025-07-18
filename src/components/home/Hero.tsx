@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useTypewriter } from '@/utils/animations';
-import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain, ChevronDown } from 'lucide-react';
+import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain, ChevronDown, Play } from 'lucide-react';
 
 // Tech skills with icons for interactive display
 const techSkills = [
@@ -132,6 +133,11 @@ export const Hero: React.FC = () => {
               <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform duration-500 relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
             </a>
+            <Link to="/snake-ladder" className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:shadow-green-500/25 transition-all duration-500 hover:-translate-y-1 overflow-hidden">
+              <span className="relative z-10 font-medium">Play Snake & Ladder</span>
+              <Play className="inline-block ml-2 w-5 h-5 group-hover:scale-110 transition-transform duration-500 relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-700 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            </Link>
             <a href="#contact" className="group px-8 py-4 bg-background/50 backdrop-blur-sm text-foreground border-2 border-primary/20 rounded-xl shadow-lg hover:shadow-xl hover:border-primary/40 hover:bg-primary/5 transition-all duration-500 hover:-translate-y-1">
               <span className="font-medium group-hover:text-primary transition-colors duration-300">Get in Touch</span>
             </a>
