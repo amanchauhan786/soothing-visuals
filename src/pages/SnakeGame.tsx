@@ -82,13 +82,13 @@ const NetworkRunnerGame: React.FC = () => {
     setObstacles(prev => prev.map(obs => ({ ...obs, x: obs.x - gameSpeed })).filter(obs => obs.x > -OBSTACLE_WIDTH));
     setPowerUps(prev => prev.map(pu => ({ ...pu, x: pu.x - gameSpeed })).filter(pu => pu.x > -POWERUP_SIZE));
 
-    // Add new obstacles
-    if (Math.random() < 0.015) {
+    // Add new obstacles (less frequently)
+    if (Math.random() < 0.008) {
       setObstacles(prev => [...prev, generateObstacle()]);
     }
 
-    // Add new power-ups
-    if (Math.random() < 0.008) {
+    // Add new power-ups (less frequently)
+    if (Math.random() < 0.004) {
       setPowerUps(prev => [...prev, generatePowerUp()]);
     }
 
@@ -96,35 +96,41 @@ const NetworkRunnerGame: React.FC = () => {
     setDistance(prev => prev + gameSpeed);
     setScore(prev => prev + 1);
 
-    // Increase game speed over time
-    setGameSpeed(prev => Math.min(prev + 0.002, 6));
+    // Increase game speed over time (slower progression)
+    setGameSpeed(prev => Math.min(prev + 0.001, 4));
 
-    // Update background apps randomly
-    if (Math.random() < 0.02) {
+    // Update background apps randomly (less frequently)
+    if (Math.random() < 0.01) {
       setBackgroundApps(prev => 
         prev.map(app => ({
           ...app,
-          active: Math.random() < 0.3
+          active: Math.random() < 0.2
         }))
       );
     }
 
-    // Calculate lag from background apps
+    // Calculate lag from background apps (reduced impact)
     const activeBandwidth = backgroundApps.filter(app => app.active).reduce((sum, app) => sum + app.bandwidth, 0);
-    const lagIncrease = activeBandwidth * 0.1 + Math.random() * 2;
+    const baseLagIncrease = 0.1; // Much slower base increase
+    const bandwidthLagIncrease = activeBandwidth * 0.02; // Reduced bandwidth impact
+    const randomLagIncrease = Math.random() * 0.3; // Reduced random spikes
+    const totalLagIncrease = baseLagIncrease + bandwidthLagIncrease + randomLagIncrease;
     
-    // Increase lag meter
+    // Increase lag meter (much slower)
     if (!shieldActive) {
       setLagMeter(prev => {
-        const newLag = Math.min(prev + lagIncrease, 100);
+        const newLag = Math.min(prev + totalLagIncrease, 100);
         if (newLag >= 100) {
           setGameOver(true);
           setGameRunning(false);
-          toast({
-            title: "Connection Timeout! 📡",
-            description: `Packet lost! Distance: ${Math.floor(distance/10)}m`,
-            variant: "destructive"
-          });
+          // Delay toast to avoid render-phase setState
+          setTimeout(() => {
+            toast({
+              title: "Connection Timeout! 📡",
+              description: `Packet lost! Distance: ${Math.floor(distance/10)}m`,
+              variant: "destructive"
+            });
+          }, 0);
           setTimeout(() => navigate('/'), 3000);
         }
         return newLag;
@@ -150,7 +156,7 @@ const NetworkRunnerGame: React.FC = () => {
   // Game loop
   useEffect(() => {
     if (gameRunning && !isPaused && !gameOver) {
-      gameLoopRef.current = setInterval(updateGame, 50);
+      gameLoopRef.current = setInterval(updateGame, 100); // Slower game loop for better performance
     } else {
       if (gameLoopRef.current) {
         clearInterval(gameLoopRef.current);
@@ -189,61 +195,110 @@ const NetworkRunnerGame: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [gameRunning, gameOver]);
 
-  // Collision detection
+  // Collision detection with ref to avoid render-phase setState
+  const collisionCheckRef = useRef<NodeJS.Timeout>();
+  
   useEffect(() => {
-    if (!gameRunning || gameOver || shieldActive) return;
+    if (!gameRunning || gameOver || shieldActive) {
+      if (collisionCheckRef.current) {
+        clearInterval(collisionCheckRef.current);
+      }
+      return;
+    }
 
-    const playerRect = { x: 50, y: playerY, width: PLAYER_SIZE, height: PLAYER_SIZE };
+    // Run collision detection separately from render
+    collisionCheckRef.current = setInterval(() => {
+      if (!gameRunning || gameOver || shieldActive) return;
 
-    // Check obstacle collisions
-    for (const obstacle of obstacles) {
-      if (
-        playerRect.x < obstacle.x + obstacle.width &&
-        playerRect.x + playerRect.width > obstacle.x &&
-        playerRect.y < obstacle.y + obstacle.height &&
-        playerRect.y + playerRect.height > obstacle.y
-      ) {
-        setLagMeter(prev => Math.min(prev + 20, 100));
-        setObstacles(prev => prev.filter(obs => obs !== obstacle));
-        toast({
-          title: "Network Congestion! 🚧",
-          description: "+20 latency spike",
-          variant: "destructive"
+      const playerRect = { x: 50, y: playerY, width: PLAYER_SIZE, height: PLAYER_SIZE };
+
+      // Check obstacle collisions
+      setObstacles(prev => {
+        let collisionDetected = false;
+        const newObstacles = prev.filter(obstacle => {
+          const collision = (
+            playerRect.x < obstacle.x + obstacle.width &&
+            playerRect.x + playerRect.width > obstacle.x &&
+            playerRect.y < obstacle.y + obstacle.height &&
+            playerRect.y + playerRect.height > obstacle.y
+          );
+          
+          if (collision && !collisionDetected) {
+            collisionDetected = true;
+            setLagMeter(current => Math.min(current + 15, 100)); // Reduced impact
+            setTimeout(() => {
+              toast({
+                title: "Network Congestion! 🚧",
+                description: "+15 latency spike",
+                variant: "destructive"
+              });
+            }, 0);
+            return false; // Remove this obstacle
+          }
+          return true;
         });
-        break;
-      }
-    }
+        return newObstacles;
+      });
 
-    // Check power-up collisions
-    for (const powerUp of powerUps) {
-      if (
-        playerRect.x < powerUp.x + POWERUP_SIZE &&
-        playerRect.x + playerRect.width > powerUp.x &&
-        playerRect.y < powerUp.y + POWERUP_SIZE &&
-        playerRect.y + playerRect.height > powerUp.y
-      ) {
-        setPowerUps(prev => prev.filter(pu => pu !== powerUp));
-        
-        switch (powerUp.type) {
-          case 'edge':
-            setScore(prev => prev + 50);
-            toast({ title: "Edge Node Boost! ⚡", description: "+50 points & speed boost!" });
-            setGameSpeed(prev => prev + 1);
-            break;
-          case 'bandwidth':
-            setLagMeter(prev => Math.max(0, prev - 30));
-            toast({ title: "Bandwidth Pack! 📊", description: "-30 latency" });
-            break;
-          case 'shield':
-            setShieldActive(true);
-            setShieldTime(300); // 6 seconds at 50fps
-            toast({ title: "Latency Shield! 🛡️", description: "5 seconds immunity!" });
-            break;
-        }
-        break;
+      // Check power-up collisions
+      setPowerUps(prev => {
+        let powerUpCollected = false;
+        const newPowerUps = prev.filter(powerUp => {
+          const collision = (
+            playerRect.x < powerUp.x + POWERUP_SIZE &&
+            playerRect.x + playerRect.width > powerUp.x &&
+            playerRect.y < powerUp.y + POWERUP_SIZE &&
+            playerRect.y + playerRect.height > powerUp.y
+          );
+          
+          if (collision && !powerUpCollected) {
+            powerUpCollected = true;
+            
+            switch (powerUp.type) {
+              case 'edge':
+                setScore(current => current + 50);
+                setGameSpeed(current => Math.min(current + 0.5, 4));
+                setTimeout(() => {
+                  toast({ 
+                    title: "Edge Node Boost! ⚡", 
+                    description: "+50 points & speed boost!" 
+                  });
+                }, 0);
+                break;
+              case 'bandwidth':
+                setLagMeter(current => Math.max(0, current - 25));
+                setTimeout(() => {
+                  toast({ 
+                    title: "Bandwidth Pack! 📊", 
+                    description: "-25 latency" 
+                  });
+                }, 0);
+                break;
+              case 'shield':
+                setShieldActive(true);
+                setShieldTime(250); // 5 seconds at 50fps
+                setTimeout(() => {
+                  toast({ 
+                    title: "Latency Shield! 🛡️", 
+                    description: "5 seconds immunity!" 
+                  });
+                }, 0);
+                break;
+            }
+            return false; // Remove this power-up
+          }
+          return true;
+        });
+        return newPowerUps;
+      });
+    }, 100); // Check collisions every 100ms
+
+    return () => {
+      if (collisionCheckRef.current) {
+        clearInterval(collisionCheckRef.current);
       }
-    }
-  }, [obstacles, powerUps, playerY, gameRunning, gameOver, shieldActive, toast]);
+    };
+  }, [gameRunning, gameOver, shieldActive, playerY, toast]);
 
   const startGame = () => {
     setPlayerY(GAME_HEIGHT / 2);
@@ -260,6 +315,7 @@ const NetworkRunnerGame: React.FC = () => {
     setShieldTime(0);
     setCurrentLatency(12);
     setThroughput(95);
+    setBackgroundApps(prev => prev.map(app => ({ ...app, active: false })));
   };
 
   const pauseGame = () => {
