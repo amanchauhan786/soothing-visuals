@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTypewriter } from '@/utils/animations';
 import { ArrowRight, Code, Cpu, Zap, Sparkles, Rocket, Brain, ChevronDown, Play, Github, Mail } from 'lucide-react';
-import JetpackGame from '@/components/games/JetpackGame';
 
 // Tech skills with icons for interactive display
 const techSkills = [
@@ -135,6 +134,11 @@ export const Hero: React.FC = () => {
               <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
             </a>
+            <Link to="/jetpack-game" className="group relative px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+              <span className="relative z-10 font-medium">Play Jetpack Game</span>
+              <Play className="inline-block ml-2 w-4 h-4 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+            </Link>
             <a href="https://github.com/PawanCoder786" target="_blank" rel="noopener noreferrer" className="group px-6 py-3 bg-background/80 backdrop-blur-sm text-foreground border border-primary/20 rounded-xl shadow-lg hover:shadow-xl hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 hover:-translate-y-1">
               <Github className="inline-block mr-2 w-4 h-4" />
               <span className="font-medium group-hover:text-primary transition-colors duration-300">GitHub</span>
@@ -146,67 +150,56 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Right side - Interactive Game + Skills */}
-        <div className="w-full lg:w-2/5 flex flex-col items-center space-y-8">
-          {/* Interactive Jetpack Game */}
-          <div className="w-full max-w-md">
-            <div className="mb-4 text-center">
-              <h3 className="text-lg font-semibold text-primary mb-2">Try the Jetpack Engineer!</h3>
-              <p className="text-sm text-muted-foreground">Tap or press Space to fly through obstacles</p>
-            </div>
-            <JetpackGame />
-          </div>
-
-          {/* Compact Skills Display */}
-          <div className="w-full max-w-md">
-            <div className="relative h-48 w-full">
-              {/* Central hub */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary via-accent to-primary rounded-full flex items-center justify-center shadow-xl shadow-primary/30 animate-professional-glow">
-                    <Code className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="absolute inset-0 w-16 h-16 rounded-full border border-primary/30 animate-ping"></div>
+        {/* Right side - Tech Skills Display */}
+        <div className="w-full lg:w-2/5 mt-12 lg:mt-0">
+          <div className="relative h-80 w-full max-w-md mx-auto">
+            {/* Central hub */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary via-accent to-primary rounded-full flex items-center justify-center shadow-xl shadow-primary/30 animate-professional-glow">
+                  <Code className="w-10 h-10 text-white" />
                 </div>
+                <div className="absolute inset-0 w-20 h-20 rounded-full border border-primary/30 animate-ping"></div>
+                <div className="absolute -inset-2 w-24 h-24 rounded-full border border-primary/20 animate-spin-slow"></div>
               </div>
+            </div>
+            
+            {/* Orbiting skills */}
+            {techSkills.map((skill, index) => {
+              const angle = (index / techSkills.length) * 360;
+              const radius = 100;
+              const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+              const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+              const IconComponent = skill.icon;
               
-              {/* Compact orbiting skills */}
-              {techSkills.map((skill, index) => {
-                const angle = (index / techSkills.length) * 360;
-                const radius = 80;
-                const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
-                const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
-                const IconComponent = skill.icon;
-                
-                return (
-                  <div
-                    key={index}
-                    className={`absolute w-12 h-12 rounded-xl border flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-110 ${
-                      activeSkill === index 
-                        ? 'bg-gradient-to-br from-primary to-accent text-white shadow-lg shadow-primary/40 scale-105 border-primary/30' 
-                        : 'bg-background/90 backdrop-blur-sm border-primary/15 hover:bg-primary/10 hover:border-primary/30 shadow-md'
-                    }`}
-                    style={{
-                      transform: `translate(${x + 96}px, ${y + 96}px)`,
-                      animation: `professional-orbit 20s linear infinite`,
-                      animationDelay: `${index * 0.8}s`,
-                    }}
-                    onClick={() => setActiveSkill(index)}
-                  >
-                    <IconComponent className={`w-6 h-6 transition-all duration-300 ${
-                      activeSkill === index ? 'text-white' : `${skill.color}`
-                    }`} />
-                  </div>
-                );
-              })}
-              
-              {/* Skill name display */}
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center">
-                <div className="bg-gradient-to-r from-background/95 via-background/98 to-background/95 backdrop-blur-md px-4 py-2 rounded-xl border border-primary/20 shadow-lg animate-skill-appear">
-                  <span className="text-sm font-medium bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    {techSkills[activeSkill].name}
-                  </span>
+              return (
+                <div
+                  key={index}
+                  className={`absolute w-14 h-14 rounded-xl border flex items-center justify-center cursor-pointer transition-all duration-500 hover:scale-110 ${
+                    activeSkill === index 
+                      ? 'bg-gradient-to-br from-primary to-accent text-white shadow-lg shadow-primary/40 scale-105 border-primary/30' 
+                      : 'bg-background/90 backdrop-blur-sm border-primary/15 hover:bg-primary/10 hover:border-primary/30 shadow-md'
+                  }`}
+                  style={{
+                    transform: `translate(${x + 160}px, ${y + 160}px)`,
+                    animation: `professional-orbit 20s linear infinite`,
+                    animationDelay: `${index * 0.8}s`,
+                  }}
+                  onClick={() => setActiveSkill(index)}
+                >
+                  <IconComponent className={`w-7 h-7 transition-all duration-300 ${
+                    activeSkill === index ? 'text-white' : `${skill.color}`
+                  }`} />
                 </div>
+              );
+            })}
+            
+            {/* Skill name display */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+              <div className="bg-gradient-to-r from-background/95 via-background/98 to-background/95 backdrop-blur-md px-4 py-2 rounded-xl border border-primary/20 shadow-lg animate-skill-appear">
+                <span className="text-sm font-medium bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  {techSkills[activeSkill].name}
+                </span>
               </div>
             </div>
           </div>
