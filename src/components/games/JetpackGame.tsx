@@ -31,10 +31,10 @@ const JetpackGame: React.FC = () => {
   const gameSpeedRef = useRef(1.0);
   const frameCountRef = useRef(0);
 
-  const GRAVITY = 0.3;
-  const JUMP_FORCE = -7;
-  const BASE_OBSTACLE_SPEED = 1.5;
-  const OBSTACLE_GAP = 180;  // Increased from 140 to 180
+  const GRAVITY = 0.25;  // Reduced for slower feel
+  const JUMP_FORCE = -6;  // Reduced for slower movement
+  const BASE_OBSTACLE_SPEED = 0.8;  // Much slower starting speed
+  const OBSTACLE_GAP = 180;
   const CANVAS_WIDTH = 400;
   const CANVAS_HEIGHT = 300;
 
@@ -69,7 +69,7 @@ const JetpackGame: React.FC = () => {
     velocityRef.current = 0;
     obstaclesRef.current = [];
     particlesRef.current = [];
-    gameSpeedRef.current = 1.0;
+    gameSpeedRef.current = 0.6;  // Start even slower
     frameCountRef.current = 0;
     setScore(0);
     setGameState('playing');
@@ -147,10 +147,10 @@ const JetpackGame: React.FC = () => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-      // Update game speed (gradually increase)
+      // Update game speed (gradually increase more slowly)
       frameCountRef.current++;
-      if (frameCountRef.current % 300 === 0) { // Every 5 seconds at 60fps
-        gameSpeedRef.current = Math.min(gameSpeedRef.current + 0.1, 2.5);
+      if (frameCountRef.current % 600 === 0) { // Every 10 seconds instead of 5
+        gameSpeedRef.current = Math.min(gameSpeedRef.current + 0.05, 1.8); // Smaller increments, lower max
       }
 
       // Update engineer physics
