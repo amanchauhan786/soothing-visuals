@@ -27,11 +27,13 @@ const JetpackGame: React.FC = () => {
   const velocityRef = useRef(0);
   const obstaclesRef = useRef<Obstacle[]>([]);
   const particlesRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; life: number }>>([]);
+  const gameSpeedRef = useRef(1.0);
+  const frameCountRef = useRef(0);
 
-  const GRAVITY = 0.4;
-  const JUMP_FORCE = -8;
-  const OBSTACLE_SPEED = 2;
-  const OBSTACLE_GAP = 120;
+  const GRAVITY = 0.3;
+  const JUMP_FORCE = -7;
+  const BASE_OBSTACLE_SPEED = 1.5;
+  const OBSTACLE_GAP = 140;
   const CANVAS_WIDTH = 400;
   const CANVAS_HEIGHT = 300;
 
@@ -66,6 +68,8 @@ const JetpackGame: React.FC = () => {
     velocityRef.current = 0;
     obstaclesRef.current = [];
     particlesRef.current = [];
+    gameSpeedRef.current = 1.0;
+    frameCountRef.current = 0;
     setScore(0);
     setGameState('playing');
   }, []);
@@ -118,9 +122,18 @@ const JetpackGame: React.FC = () => {
       const ctx = canvas?.getContext('2d');
       if (!canvas || !ctx) return;
 
-      // Clear canvas
-      ctx.fillStyle = 'linear-gradient(to bottom, #87CEEB 0%, #98FB98 100%)';
+      // Clear canvas with gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
+      gradient.addColorStop(0, '#87CEEB');
+      gradient.addColorStop(1, '#98FB98');
+      ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+      // Update game speed (gradually increase)
+      frameCountRef.current++;
+      if (frameCountRef.current % 300 === 0) { // Every 5 seconds at 60fps
+        gameSpeedRef.current = Math.min(gameSpeedRef.current + 0.1, 2.5);
+      }
 
       // Update engineer physics
       velocityRef.current += GRAVITY;
@@ -140,10 +153,10 @@ const JetpackGame: React.FC = () => {
         return;
       }
 
-      // Spawn obstacles
+      // Spawn obstacles with better spacing
       if (obstaclesRef.current.length === 0 || 
-          obstaclesRef.current[obstaclesRef.current.length - 1].x < CANVAS_WIDTH - 200) {
-        const gapY = Math.random() * (CANVAS_HEIGHT - OBSTACLE_GAP - 100) + 50;
+          obstaclesRef.current[obstaclesRef.current.length - 1].x < CANVAS_WIDTH - 250) {
+        const gapY = Math.random() * (CANVAS_HEIGHT - OBSTACLE_GAP - 120) + 60;
         obstaclesRef.current.push({
           x: CANVAS_WIDTH,
           y: 0,
@@ -160,9 +173,10 @@ const JetpackGame: React.FC = () => {
         });
       }
 
-      // Update obstacles
+      // Update obstacles with variable speed
+      const currentSpeed = BASE_OBSTACLE_SPEED * gameSpeedRef.current;
       obstaclesRef.current = obstaclesRef.current.filter(obstacle => {
-        obstacle.x -= OBSTACLE_SPEED;
+        obstacle.x -= currentSpeed;
         
         // Check collision
         if (checkCollision(engineerRef.current, obstacle)) {
@@ -274,12 +288,17 @@ const JetpackGame: React.FC = () => {
     <div className="relative">
       <canvas
         ref={canvasRef}
-        className="border-2 border-primary/20 rounded-lg shadow-lg bg-gradient-to-b from-blue-200 to-green-200 cursor-pointer"
+        className="border-2 border-primary/20 rounded-lg shadow-lg bg-gradient-to-b from-blue-200 to-green-200 cursor-pointer touch-none"
         style={{ 
           width: '100%', 
           maxWidth: '400px', 
           height: 'auto',
-          aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}`
+          aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}`,
+          touchAction: 'none'
+        }}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          jump();
         }}
       />
       
@@ -328,6 +347,9 @@ const JetpackGame: React.FC = () => {
       {gameState === 'playing' && (
         <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1 rounded-lg border border-primary/20 shadow">
           <span className="text-sm font-bold text-primary">Score: {score}</span>
+          <div className="text-xs text-muted-foreground mt-1">
+            Speed: {gameSpeedRef.current.toFixed(1)}x
+          </div>
         </div>
       )}
     </div>

@@ -125,7 +125,7 @@ export const Hero: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground/90 mb-8 max-w-2xl animate-professional-subtitle leading-relaxed">
-            Computer Science Engineering Student | FPGA-Based TinyML Researcher | AI/ML Innovator | Co-Founder at CropSky
+            Computer Science Engineering Student | FPGA-Based TinyML Researcher | AI/ML Innovator | BUILDER at CropSky
           </p>
           
           <div className="flex flex-wrap gap-4 animate-professional-buttons">
