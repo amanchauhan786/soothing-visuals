@@ -18,10 +18,37 @@ const JetpackGame: React.FC = () => {
   const gameLoopRef = useRef<number>();
   const [gameState, setGameState] = useState<'menu' | 'playing' | 'gameOver'>('menu');
   const [score, setScore] = useState(0);
+  const [engineeringComment, setEngineeringComment] = useState('');
   const [highScore, setHighScore] = useState(() => {
     const saved = localStorage.getItem('jetpack-high-score');
     return saved ? parseInt(saved, 10) : 0;
   });
+
+  // Engineering comments based on score
+  const getEngineeringComment = (finalScore: number): string => {
+    const comments = [
+      "Every failure is a step closer to innovation! 🔧",
+      "Remember: The best engineers learn from every crash! 💡",
+      "Debug, iterate, improve - that's the engineering way! ⚙️",
+      "Great engineers are made through trial and error! 🛠️",
+      "Your persistence is your greatest engineering tool! 🔩",
+      "Real engineers never give up on the first prototype! 🚀",
+      "Every bug is just an undocumented feature! 💻",
+      "Keep coding, keep building, keep flying! 👨‍💻",
+      "Error 404: Giving up not found! 🎯",
+      "The best products come from the most iterations! 🔄"
+    ];
+
+    if (finalScore === 0) {
+      return "Even the greatest engineers had their first day! 🌟";
+    } else if (finalScore < 5) {
+      return comments[Math.floor(Math.random() * 3)];
+    } else if (finalScore < 10) {
+      return comments[Math.floor(Math.random() * 5) + 3];
+    } else {
+      return comments[Math.floor(Math.random() * 2) + 8];
+    }
+  };
 
   // Game objects
   const engineerRef = useRef<GameObject>({ x: 80, y: 200, width: 40, height: 40 });
@@ -163,10 +190,12 @@ const JetpackGame: React.FC = () => {
         velocityRef.current = 0;
       }
       if (engineerRef.current.y + engineerRef.current.height > CANVAS_HEIGHT) {
+        const finalScore = score;
+        setEngineeringComment(getEngineeringComment(finalScore));
         setGameState('gameOver');
-        if (score > highScore) {
-          setHighScore(score);
-          localStorage.setItem('jetpack-high-score', score.toString());
+        if (finalScore > highScore) {
+          setHighScore(finalScore);
+          localStorage.setItem('jetpack-high-score', finalScore.toString());
         }
         return;
       }
@@ -204,10 +233,12 @@ const JetpackGame: React.FC = () => {
         
         // Check collision
         if (checkCollision(engineerRef.current, obstacle)) {
+          const finalScore = score;
+          setEngineeringComment(getEngineeringComment(finalScore));
           setGameState('gameOver');
-          if (score > highScore) {
-            setHighScore(score);
-            localStorage.setItem('jetpack-high-score', score.toString());
+          if (finalScore > highScore) {
+            setHighScore(finalScore);
+            localStorage.setItem('jetpack-high-score', finalScore.toString());
           }
           return true;
         }
@@ -458,6 +489,11 @@ const JetpackGame: React.FC = () => {
                     <Trophy className="w-4 h-4 mr-1 text-yellow-500" />
                     Best: <span className="font-bold text-yellow-600 ml-1">{highScore}</span>
                   </p>
+                  <div className="mt-3 p-3 bg-primary/10 rounded-lg border border-primary/20">
+                    <p className="text-sm text-primary font-medium text-center">
+                      {engineeringComment}
+                    </p>
+                  </div>
                 </div>
                 <button
                   onClick={resetGame}
