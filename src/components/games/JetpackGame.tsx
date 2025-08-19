@@ -81,6 +81,8 @@ const JetpackGame: React.FC = () => {
 
   // Input handling
   useEffect(() => {
+    let touchDevice = false;
+
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.code === 'Space' || e.code === 'ArrowUp') {
         e.preventDefault();
@@ -88,20 +90,35 @@ const JetpackGame: React.FC = () => {
       }
     };
 
-    const handleClick = () => {
+    const handleTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      touchDevice = true;
       jump();
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      // Only handle mouse clicks if it's not a touch device
+      if (!touchDevice) {
+        e.preventDefault();
+        jump();
+      }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     const canvas = canvasRef.current;
     if (canvas) {
+      canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
       canvas.addEventListener('click', handleClick);
+      // Prevent context menu on touch devices
+      canvas.addEventListener('contextmenu', (e) => e.preventDefault());
     }
 
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
       if (canvas) {
+        canvas.removeEventListener('touchstart', handleTouchStart);
         canvas.removeEventListener('click', handleClick);
+        canvas.removeEventListener('contextmenu', (e) => e.preventDefault());
       }
     };
   }, [jump]);
@@ -402,17 +419,15 @@ const JetpackGame: React.FC = () => {
     <div className="relative">
       <canvas
         ref={canvasRef}
-        className="border-2 border-primary/20 rounded-lg shadow-lg bg-gradient-to-b from-blue-200 to-green-200 cursor-pointer touch-none"
+        className="border-2 border-primary/20 rounded-lg shadow-lg bg-gradient-to-b from-blue-200 to-green-200 cursor-pointer touch-none select-none"
         style={{ 
           width: '100%', 
           maxWidth: '400px', 
           height: 'auto',
           aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}`,
-          touchAction: 'none'
-        }}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          jump();
+          touchAction: 'none',
+          userSelect: 'none',
+          WebkitUserSelect: 'none'
         }}
       />
       
