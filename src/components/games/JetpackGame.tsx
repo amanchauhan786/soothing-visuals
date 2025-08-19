@@ -10,6 +10,7 @@ interface GameObject {
 
 interface Obstacle extends GameObject {
   passed: boolean;
+  type: 'test' | 'blueprint' | 'computer' | 'code' | 'circuit';
 }
 
 const JetpackGame: React.FC = () => {
@@ -157,19 +158,25 @@ const JetpackGame: React.FC = () => {
       if (obstaclesRef.current.length === 0 || 
           obstaclesRef.current[obstaclesRef.current.length - 1].x < CANVAS_WIDTH - 300) {
         const gapY = Math.random() * (CANVAS_HEIGHT - OBSTACLE_GAP - 80) + 40;
+        const obstacleTypes: Array<'test' | 'blueprint' | 'computer' | 'code' | 'circuit'> = 
+          ['test', 'blueprint', 'computer', 'code', 'circuit'];
+        const randomType = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
+        
         obstaclesRef.current.push({
           x: CANVAS_WIDTH,
           y: 0,
           width: 50,
           height: gapY,
-          passed: false
+          passed: false,
+          type: randomType
         });
         obstaclesRef.current.push({
           x: CANVAS_WIDTH,
           y: gapY + OBSTACLE_GAP,
           width: 50,
           height: CANVAS_HEIGHT - (gapY + OBSTACLE_GAP),
-          passed: false
+          passed: false,
+          type: randomType
         });
       }
 
@@ -213,15 +220,122 @@ const JetpackGame: React.FC = () => {
         ctx.fill();
       }
 
-      // Draw obstacles
-      ctx.fillStyle = '#8B4513';
+      // Draw engineering-themed obstacles
       obstaclesRef.current.forEach(obstacle => {
-        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        // Add pipe details
-        ctx.fillStyle = '#654321';
-        ctx.fillRect(obstacle.x, obstacle.y, 5, obstacle.height);
-        ctx.fillRect(obstacle.x + 45, obstacle.y, 5, obstacle.height);
-        ctx.fillStyle = '#8B4513';
+        const drawEngineringObstacle = (x: number, y: number, width: number, height: number, type: string) => {
+          switch(type) {
+            case 'test':
+              // Test paper with lines and "F" grade
+              ctx.fillStyle = '#FFFFFF';
+              ctx.fillRect(x, y, width, height);
+              ctx.strokeStyle = '#000000';
+              ctx.lineWidth = 1;
+              ctx.strokeRect(x, y, width, height);
+              
+              // Draw lines on paper
+              ctx.strokeStyle = '#CCCCCC';
+              for (let i = y + 10; i < y + height - 10; i += 8) {
+                ctx.beginPath();
+                ctx.moveTo(x + 5, i);
+                ctx.lineTo(x + width - 5, i);
+                ctx.stroke();
+              }
+              
+              // Draw "F" grade in red
+              ctx.fillStyle = '#FF0000';
+              ctx.font = 'bold 20px Arial';
+              ctx.fillText('F', x + width/2 - 6, y + height/2 + 6);
+              break;
+              
+            case 'blueprint':
+              // Engineering blueprint
+              ctx.fillStyle = '#0066CC';
+              ctx.fillRect(x, y, width, height);
+              ctx.strokeStyle = '#FFFFFF';
+              ctx.lineWidth = 1;
+              
+              // Draw grid pattern
+              for (let i = x; i < x + width; i += 10) {
+                ctx.beginPath();
+                ctx.moveTo(i, y);
+                ctx.lineTo(i, y + height);
+                ctx.stroke();
+              }
+              for (let i = y; i < y + height; i += 10) {
+                ctx.beginPath();
+                ctx.moveTo(x, i);
+                ctx.lineTo(x + width, i);
+                ctx.stroke();
+              }
+              
+              // Draw circuit symbols
+              ctx.strokeStyle = '#FFFFFF';
+              ctx.lineWidth = 2;
+              ctx.strokeRect(x + 10, y + height/2 - 5, 15, 10);
+              ctx.strokeRect(x + 25, y + height/2 - 5, 15, 10);
+              break;
+              
+            case 'computer':
+              // Computer screen
+              ctx.fillStyle = '#2F2F2F';
+              ctx.fillRect(x, y, width, height);
+              ctx.strokeStyle = '#000000';
+              ctx.lineWidth = 2;
+              ctx.strokeRect(x, y, width, height);
+              
+              // Screen glow
+              ctx.fillStyle = '#00FF00';
+              ctx.fillRect(x + 5, y + 5, width - 10, height - 10);
+              
+              // Terminal text
+              ctx.fillStyle = '#000000';
+              ctx.font = '8px monospace';
+              ctx.fillText('>', x + 8, y + 15);
+              ctx.fillText('ERROR', x + 8, y + 25);
+              break;
+              
+            case 'code':
+              // Code document
+              ctx.fillStyle = '#1E1E1E';
+              ctx.fillRect(x, y, width, height);
+              ctx.strokeStyle = '#555555';
+              ctx.lineWidth = 1;
+              ctx.strokeRect(x, y, width, height);
+              
+              // Code syntax highlighting
+              ctx.fillStyle = '#569CD6';
+              ctx.font = '8px monospace';
+              ctx.fillText('if', x + 5, y + 15);
+              ctx.fillStyle = '#CE9178';
+              ctx.fillText('(bug)', x + 5, y + 25);
+              ctx.fillStyle = '#D4D4D4';
+              ctx.fillText('{fix}', x + 5, y + 35);
+              break;
+              
+            case 'circuit':
+              // Circuit board
+              ctx.fillStyle = '#006600';
+              ctx.fillRect(x, y, width, height);
+              
+              // Circuit traces
+              ctx.strokeStyle = '#CCCCCC';
+              ctx.lineWidth = 2;
+              for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(x, y + (i + 1) * height/4);
+                ctx.lineTo(x + width, y + (i + 1) * height/4);
+                ctx.stroke();
+              }
+              
+              // Components
+              ctx.fillStyle = '#000000';
+              ctx.fillRect(x + 10, y + height/2 - 3, 8, 6);
+              ctx.fillRect(x + 25, y + height/2 - 3, 8, 6);
+              break;
+          }
+        };
+        
+        drawEngineringObstacle(obstacle.x, obstacle.y, obstacle.width, obstacle.height, obstacle.type);
       });
 
       // Draw particles
