@@ -33,7 +33,7 @@ const JetpackGame: React.FC = () => {
   const GRAVITY = 0.3;
   const JUMP_FORCE = -7;
   const BASE_OBSTACLE_SPEED = 1.5;
-  const OBSTACLE_GAP = 140;
+  const OBSTACLE_GAP = 180;  // Increased from 140 to 180
   const CANVAS_WIDTH = 400;
   const CANVAS_HEIGHT = 300;
 
@@ -155,8 +155,8 @@ const JetpackGame: React.FC = () => {
 
       // Spawn obstacles with better spacing
       if (obstaclesRef.current.length === 0 || 
-          obstaclesRef.current[obstaclesRef.current.length - 1].x < CANVAS_WIDTH - 250) {
-        const gapY = Math.random() * (CANVAS_HEIGHT - OBSTACLE_GAP - 120) + 60;
+          obstaclesRef.current[obstaclesRef.current.length - 1].x < CANVAS_WIDTH - 300) {
+        const gapY = Math.random() * (CANVAS_HEIGHT - OBSTACLE_GAP - 80) + 40;
         obstaclesRef.current.push({
           x: CANVAS_WIDTH,
           y: 0,
