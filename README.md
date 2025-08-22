@@ -1,69 +1,104 @@
-# Welcome to your Lovable project
+<img width="1894" height="848" alt="image" src="https://github.com/user-attachments/assets/785e97bb-59cf-4055-9dbc-502f6dbce4da" />
+<img width="871" height="835" alt="image" src="https://github.com/user-attachments/assets/8c773546-b697-49dd-a3ec-47225b8eae98" />
+<img width="1882" height="835" alt="image" src="https://github.com/user-attachments/assets/0fbe6ef1-46d0-4e4f-8292-48c5c9307597" />
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/86a626a8-ad13-4651-93b8-31b44eea4be8
+# Soothing Visuals & Jet Sky Engineer Game
 
-## How can I edit this code?
+https://amanchauhan.vercel.app/
 
-There are several ways of editing your application.
+This repository contains two creative projects:
 
-**Use Lovable**
+1. **Soothing Visuals** – A calming and immersive visual experience designed to help viewers relax and unwind.
+2. **Jet Sky Engineer Game** – A fun, possibly engineering-themed game featuring jet ski gameplay (please provide more details if available).
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/86a626a8-ad13-4651-93b8-31b44eea4be8) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Soothing Visuals
 
-**Use your preferred IDE**
+A project that delivers a peaceful visual environment—think ambient animations, serene colors, and smooth transitions meant to soothe the viewer.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Table of Contents
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Features
+* How to View
+* Project Structure
+* Customization
+* License
 
-Follow these steps:
+### Features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* Ambient, relaxing animations
+* Responsive design that adapts to different screen sizes
+* Lightweight and easy to set up
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### How to View
 
-# Step 3: Install the necessary dependencies.
-npm i
+Clone the repository:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone https://github.com/amanchauhan786/soothing-visuals.git
+cd soothing-visuals
 ```
 
-**Edit a file directly in GitHub**
+Open `index.html` in your browser by double-clicking the file or using "Open with".
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Project Structure
 
-**Use GitHub Codespaces**
+```
+soothing-visuals/
+├── index.html
+├── styles.css
+├── script.js
+└── assets/
+    └── (backgrounds, animations, images, etc.)
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Customization
 
-## What technologies are used for this project?
+* Modify visuals and colors via `styles.css`
+* Change animations or behavior via `script.js`
+* Add or replace content within `assets/` to personalize the experience
 
-This project is built with .
+### License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project is open-source. You’re free to use and modify it for personal or commercial purposes. Consider adding an MIT License to the repository.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/86a626a8-ad13-4651-93b8-31b44eea4be8) and click on Share -> Publish.
+## Jet Sky Engineer Game
 
-## I want to use a custom domain - is that possible?
+A jet ski game that appears to be engineering-themed—maybe involving building or navigating jet skis. Please let me know more about its structure, technology, or gameplay if available!
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+### Table of Contents
+
+* Overview
+* How to View / Run (please clarify)
+* Project Structure (placeholder)
+* License
+
+### (Suggested) Overview
+
+This is a fun, game-based project where players might control jet skis, possibly with some engineering or construction elements integrated.
+
+### How to View / Run
+
+*To be filled with more details* (e.g., `index.html`, `main.py`, or game engine steps)
+
+### Project Structure
+
+```
+jet-sky-engineer/
+├── index.html or main.py or game files
+├── assets/
+├── (JS/CSS or engine files)
+└── README.md
+```
+
+### License
+
+Similar to above—open-source use encouraged, with the suggestion to include an MIT License.
+
+---
+
