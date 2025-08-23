@@ -7,7 +7,7 @@
 # Soothing Visuals & Jet Sky Engineer Game
 
 https://amanchauhan.vercel.app/
-
+Also check out my ayurguna website:- https://ayurguna.netlify.app/
 This repository contains two creative projects:
 
 1. **Soothing Visuals** – A calming and immersive visual experience designed to help viewers relax and unwind.
